@@ -4,6 +4,7 @@ import 'screens/login_screen/login_screen.dart';
 import 'utils/constants.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
