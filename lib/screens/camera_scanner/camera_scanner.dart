@@ -1,5 +1,7 @@
+import 'package:event_planner/database/repository/app_repository.dart';
 import 'package:event_planner/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
@@ -7,6 +9,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
+import '../../database/entity/note.dart';
 import '../../utils/strings.dart';
 
 
@@ -18,6 +21,7 @@ class CameraScanner extends StatefulWidget {
 }
 
 class _CameraScannerState extends State<CameraScanner> {
+  static AppRepository _appRepository = GetIt.instance.get<AppRepository>();
   String _imagePath = "";
   final ImagePicker _picker = ImagePicker();
   late final TextDetector _textDetector;
@@ -156,7 +160,7 @@ class _CameraScannerState extends State<CameraScanner> {
                   width: width/2,
                   child: ElevatedButton(
                       onPressed: () {
-
+                        _appRepository.addNote(Note("sample title", printText));
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),

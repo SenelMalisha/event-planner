@@ -1,6 +1,7 @@
 class StringValues {
   StringValues._();
-
+  static const database_name = "app_database.db";
+  static const database_version = 1;
   static const btn_setup_touch_id = "Setup Touch-ID";
   static const btn_setup_face_id = "Setup Face-ID";
   static const btn_setup_biometrics = "Setup Biometrics";
