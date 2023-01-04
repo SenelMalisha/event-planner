@@ -1,3 +1,4 @@
+import 'package:event_planner/screens/camera_scanner/camera_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
@@ -136,7 +137,12 @@ class _LoginContentState extends State<LoginContent>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CameraScanner()),
+          );
+        },
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
