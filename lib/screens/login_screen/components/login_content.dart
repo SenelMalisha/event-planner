@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/helper_functions.dart';
 import '../../biometrics/register_biometric.dart';
+import '../../on_boarding/on_boarding_home.dart';
 import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
@@ -57,7 +58,16 @@ class _LoginContentState extends State<LoginContent>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          if(title == "Log In"){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const OnBoardingHome()),
+            );
+          }
+
+
+        },
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: const StadiumBorder(),
@@ -124,7 +134,7 @@ class _LoginContentState extends State<LoginContent>
 
   Widget forgotPassword() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 110),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: TextButton(
         onPressed: () {},
         child: const Text(

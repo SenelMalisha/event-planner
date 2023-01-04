@@ -11,6 +11,7 @@ import '../../enum/biometric_type.dart';
 import '../../services/local_auth_service.dart';
 import '../../utils/constants.dart';
 import '../../utils/strings.dart';
+import '../on_boarding/on_boarding_home.dart';
 
 class BiometricRegister extends StatefulWidget {
 
@@ -71,7 +72,10 @@ class _BiometricRegisterState extends State<BiometricRegister> with WidgetsBindi
   setupBiometric() async {
     await LocalAuthService.authenticate().then((isAuthenticated) {
       if (isAuthenticated) {
-        //do action
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const OnBoardingHome()),
+        );
       }
     });
   }
