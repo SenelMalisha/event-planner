@@ -8,6 +8,6 @@ class StringValues {
   static const btn_cancel = "Cancel";
   static const lblCameraScanner = "Scanner";
   static const lblPickNewImage = "Pick new image";
-  static const lbCopyTextToNote = "Add scanned text to your note";
+  static const lblCopyTextToNote = "Add to note";
   static const titleHistoryPage = "History Page";
 }

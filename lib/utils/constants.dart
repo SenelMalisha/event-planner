@@ -6,6 +6,7 @@ const kBackgroundColor = Color(0xFFFFFFFF);
 const kPrimaryColor = Color(0xFFFFFFFF);
 const kSecondaryColor = Color(0xFF265DAB);
 const whiteColor = Color(0xFFFFFFFF);
+const accent = Color(0xFFFFD700);
 
 const bgDark = Color(0xFF000000);
 const bgLight = Color(0x203A3A3A);

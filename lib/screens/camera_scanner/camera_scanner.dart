@@ -93,12 +93,13 @@ class _CameraScannerState extends State<CameraScanner> {
           Visibility(
             visible: isScanned,
             child: Center(
-                child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
                     child: Container(
+                      height: height/2.5,
                       decoration: myBoxDecoration(),
                       margin: const EdgeInsets.all(16.0),
                       padding: const EdgeInsets.all(10.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
                       child: Text(
                         printText,
                         textAlign: TextAlign.start,
@@ -123,43 +124,58 @@ class _CameraScannerState extends State<CameraScanner> {
               child: Visibility(
                 visible: isScanned,
                 child: Container(
-                  height: 50,
-            child: TextButton(
-                  autofocus: false,
-                  onPressed: () {
-                    _recognizeTexts();
-                  },
-                  child: const Text(
+                  width: width/2,
+             child: ElevatedButton(
+                    onPressed: () {
+                      _recognizeTexts();
+                      },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: const StadiumBorder(),
+                  primary: bgDark,
+                  elevation: 8,
+                  shadowColor: Colors.black87,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
                     StringValues.lblPickNewImage,
-                    style:  TextStyle(
-                      color: bgTextColorBlack,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    style: const TextStyle(
+                      fontSize: 12,
                     ),
-                    textScaleFactor: 1,
-                  )),
+                  ),
+                ),
+              ),
           ),
               )),
+          Padding(padding: const EdgeInsets.all(10.0)),
           Center(
               child: Visibility(
                 visible: isScanned,
                 child: Container(
-                  height: 50,
-                  child: TextButton(
-                      autofocus: false,
+                  width: width/2,
+                  child: ElevatedButton(
                       onPressed: () {
+
                       },
-                      child: const Text(
-                        StringValues.lbCopyTextToNote,
-                        style:  TextStyle(
-                          color: bgTextColorBlack,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: const StadiumBorder(),
+                        primary: bgDark,
+                        elevation: 8,
+                        shadowColor: Colors.black87,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          StringValues.lblCopyTextToNote,
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
                         ),
-                        textScaleFactor: 1,
-                      )),
+                      ),
                 ),
-              ))
+              )))
         ],
       ),
     );

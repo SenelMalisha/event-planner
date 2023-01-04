@@ -138,10 +138,7 @@ class _LoginContentState extends State<LoginContent>
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: TextButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CameraScanner()),
-          );
+
         },
         child: const Text(
           'Forgot Password?',
