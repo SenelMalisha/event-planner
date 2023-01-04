@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:sizer/sizer.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/helper_functions.dart';
+import '../../biometrics/register_biometric.dart';
 import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
@@ -137,6 +139,28 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
+  Widget biometricButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 110),
+      child: TextButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  BiometricRegister()),
+          );
+        },
+        child: const Text(
+          'Setup Biometric',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: kSecondaryColor,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     createAccountContent = [
@@ -146,6 +170,7 @@ class _LoginContentState extends State<LoginContent>
       loginButton('Sign Up'),
       orDivider(),
       logos(),
+      biometricButton()
     ];
 
     loginContent = [
@@ -190,8 +215,8 @@ class _LoginContentState extends State<LoginContent>
     return Stack(
       children: [
         const Positioned(
-          top: 136,
-          left: 24,
+          top: 100,
+          left: 36,
           child: TopText(),
         ),
         Padding(
