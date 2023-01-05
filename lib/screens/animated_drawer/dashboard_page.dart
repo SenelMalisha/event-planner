@@ -57,7 +57,7 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   final controller = ScrollController();
-  final double itemSize = 75;
+  final double itemSize = 50;
 
   final screens = [
     ChatScreen(),
@@ -83,18 +83,14 @@ class _DashboardState extends State<Dashboard> {
     Icons.alarm,
     Icons.menu_book,
     Icons.monochrome_photos,
-
-    Icons.message_sharp,
-    Icons.event,
-    Icons.alarm,
-    Icons.menu_book,
     Icons.monochrome_photos,
-
-    Icons.message_sharp,
-    Icons.event,
-    Icons.alarm,
-    Icons.menu_book,
-    Icons.monochrome_photos
+    Icons.monochrome_photos,
+    Icons.monochrome_photos,
+    Icons.monochrome_photos,
+    Icons.monochrome_photos,
+    Icons.monochrome_photos,
+    Icons.monochrome_photos,
+    Icons.monochrome_photos,
   ];
 
   final List<String> titleList = [
@@ -103,17 +99,14 @@ class _DashboardState extends State<Dashboard> {
     "Alarms",
     "My Notes",
     "Moments",
-
-    "My Bot",
-    "Events",
-    "Alarms",
-    "My Notes",
-    "Moments",
-    "My Bot",
-    "Events",
-    "Alarms",
-    "My Notes",
-    "Moments",
+    "TODO",
+    "TODO",
+    "TODO",
+    "TODO",
+    "TODO",
+    "TODO",
+    "TODO",
+    "TODO",
   ];
 
   void onListenerController(){
@@ -199,7 +192,7 @@ class _DashboardState extends State<Dashboard> {
           // personal highlight floating cards
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 19),
-            child: NextShiftCard(_isLoading, null, null, null),
+            child: _body(),
           ),
         ],
       ),
@@ -210,7 +203,6 @@ class _DashboardState extends State<Dashboard> {
     children: [
       _listView(),
       Container(
-        height: 180,
         decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -223,7 +215,7 @@ class _DashboardState extends State<Dashboard> {
   );
 
   Widget _listView() => SizedBox(
-    height: MediaQuery.of(context).size.height,
+    height: MediaQuery.of(context).size.height/2,
     child: ListView.builder(
       itemCount: titleList.length,
       controller: controller,
@@ -285,7 +277,7 @@ class _DashboardState extends State<Dashboard> {
                   print('$index');
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.indigo,
+                    primary: bgDark,
                     textStyle: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold)
