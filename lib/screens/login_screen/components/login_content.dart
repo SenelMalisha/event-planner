@@ -38,6 +38,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(30),
           child: TextField(
+            style: TextStyle(color: bgTextColorBlack),
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(

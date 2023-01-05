@@ -6,6 +6,7 @@ import '../../widgets/heighlight_card.dart';
 import '../../widgets/menu_widget.dart';
 import '../../widgets/shift_card.dart';
 import '../camera_scanner/camera_scanner.dart';
+import '../note/note_grid.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CameraScanner()),
+            MaterialPageRoute(builder: (context) => const NotesGridView()),
           );
         },
         child: Icon(Icons.add_a_photo),

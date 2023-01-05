@@ -160,6 +160,7 @@ class _CameraScannerState extends State<CameraScanner> {
                   width: width/2,
                   child: ElevatedButton(
                       onPressed: () {
+                        Navigator.pop(context);
                         _appRepository.addNote(Note("sample title", printText));
                       },
                       style: ElevatedButton.styleFrom(
