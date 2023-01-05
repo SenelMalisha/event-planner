@@ -1,8 +1,10 @@
-import 'package:event_planner/screens/bot_screen/bot.dart';
+
+import 'package:event_planner/screens/bot_screen/chat_screen.dart';
 import 'package:event_planner/screens/moments_screen/moments.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../bot_screen/bot.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -16,22 +18,21 @@ class _DashboardState extends State<Dashboard> {
   final double itemSize = 75;
 
   final screens = [
-    MyBot(),
-    Moments(),
-    MyBot(),
-    Moments(),
-    MyBot(),
-
-    MyBot(),
-    Moments(),
-    MyBot(),
-    Moments(),
-    MyBot(),
-    MyBot(),
-    Moments(),
-    MyBot(),
-    Moments(),
-    MyBot(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
   ];
 
   final icons = [
@@ -46,6 +47,7 @@ class _DashboardState extends State<Dashboard> {
     Icons.alarm,
     Icons.menu_book,
     Icons.monochrome_photos,
+    
     Icons.message_sharp,
     Icons.event,
     Icons.alarm,
