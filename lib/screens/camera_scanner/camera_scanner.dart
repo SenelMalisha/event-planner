@@ -1,10 +1,15 @@
+import 'package:event_planner/database/repository/app_repository.dart';
+import 'package:event_planner/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
+import '../../database/entity/note.dart';
 import '../../utils/strings.dart';
 
 
@@ -16,10 +21,12 @@ class CameraScanner extends StatefulWidget {
 }
 
 class _CameraScannerState extends State<CameraScanner> {
+  static AppRepository _appRepository = GetIt.instance.get<AppRepository>();
   String _imagePath = "";
   final ImagePicker _picker = ImagePicker();
   late final TextDetector _textDetector;
   String printText = "";
+  bool isScanned = false;
 
   @override
   void initState() {
@@ -30,7 +37,12 @@ class _CameraScannerState extends State<CameraScanner> {
   }
 
   void _recognizeTexts() async {
+
+    setState(() {
+      isScanned = false;
+    });
     printText = "";
+    String tempPrintText = "";
     // Creating an InputImage object using the image path
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     _imagePath = image!.path;
@@ -40,12 +52,15 @@ class _CameraScannerState extends State<CameraScanner> {
     // Finding text String(s)
     for (TextBlock block in text.blocks) {
       for (TextLine line in block.lines) {
-        print('text: ${line.text}');
-        setState(() {
-          printText = printText + line.text;
-        });
+        tempPrintText = tempPrintText + "\n" +line.text;
       }
     }
+    setState(() {
+      printText = tempPrintText;
+      if(printText.isNotEmpty){
+        isScanned = true;
+      }
+    });
   }
 
   /// Display photo album for picking.
@@ -56,47 +71,123 @@ class _CameraScannerState extends State<CameraScanner> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: bgDark,
         centerTitle: true,
         title: const Text(StringValues.lblCameraScanner),
       ),
       body: Column(
         children: [
+          Visibility(
+            visible: isScanned,
+            child: Container(
+              margin: const EdgeInsets.only(top: 16.0),
+              child: Lottie.asset(
+                  'assets/lottie/scanlogo.json',
+                  height: 15.h,
+                  fit: BoxFit.fill,
+                  repeat: false,
+                animate: isScanned
+              ),
+            ),
+          ),
+          Visibility(
+            visible: isScanned,
+            child: Center(
+                    child: Container(
+                      height: height/2.5,
+                      decoration: myBoxDecoration(),
+                      margin: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(10.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                      child: Text(
+                        printText,
+                        textAlign: TextAlign.start,
+                        style:  const TextStyle(
+                          color: bgTextColorBlack,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),))),
+          ),
+          Visibility(
+            visible: !isScanned,
+            child: Container(
+              height: height/1.5,
+              child: Lottie.asset(
+                  'assets/lottie/scan.json',
+                  width: width/2,
+                  repeat: true
+              ),
+            ),
+          ),
           Center(
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    color: Colors.black45,
-                    height: 350,
-                    margin: EdgeInsets.only(bottom: 4.h, top: 15.h),
-                    child: Text(
-                      printText,
-                      textAlign: TextAlign.center,
-                      style:  const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),))),
-          Center(
-              child: Container(
-                height: 100,
-            child: TextButton(
-                autofocus: false,
-                onPressed: () {
-                  _recognizeTexts();
-                },
-                child: const Text(
-                  StringValues.lblCameraScanner,
-                  style:  TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              child: Visibility(
+                visible: isScanned,
+                child: Container(
+                  width: width/2,
+             child: ElevatedButton(
+                    onPressed: () {
+                      _recognizeTexts();
+                      },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: const StadiumBorder(),
+                  primary: bgDark,
+                  elevation: 8,
+                  shadowColor: Colors.black87,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    StringValues.lblPickNewImage,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
                   ),
-                  textScaleFactor: 1,
-                )),
-          ))
+                ),
+              ),
+          ),
+              )),
+          Padding(padding: const EdgeInsets.all(10.0)),
+          Center(
+              child: Visibility(
+                visible: isScanned,
+                child: Container(
+                  width: width/2,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _appRepository.addNote(Note("sample title", printText));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: const StadiumBorder(),
+                        primary: bgDark,
+                        elevation: 8,
+                        shadowColor: Colors.black87,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          StringValues.lblCopyTextToNote,
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                ),
+              )))
         ],
       ),
+    );
+  }
+  BoxDecoration myBoxDecoration() {
+    return BoxDecoration(
+      border: Border.all(),
     );
   }
 }

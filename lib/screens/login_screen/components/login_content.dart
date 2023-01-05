@@ -1,3 +1,4 @@
+import 'package:event_planner/screens/camera_scanner/camera_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
@@ -37,6 +38,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(30),
           child: TextField(
+            style: TextStyle(color: bgTextColorBlack),
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -136,7 +138,9 @@ class _LoginContentState extends State<LoginContent>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+
+        },
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
