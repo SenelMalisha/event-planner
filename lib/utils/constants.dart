@@ -29,6 +29,7 @@ const BoarderColor = Color(0xFFE8E8E8);
 const NoteColor = Color(0xFF535353);
 const Ocean4 = Color(0xFF26467F);
 const ContainerColor = Color(0xFFDFDFDF);
+const primaryColor = Color(0xFF0D2440);
 
 
 

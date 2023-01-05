@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class PromotionPage extends StatefulWidget {
   const PromotionPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _PromotionPageState extends State<PromotionPage> {
         backgroundColor: Colors.cyan,
         title: const Text("Promotions"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }

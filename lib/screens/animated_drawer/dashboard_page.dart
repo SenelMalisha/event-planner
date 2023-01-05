@@ -8,6 +8,7 @@ import '../../utils/constants.dart';
 import '../../widgets/heighlight_card.dart';
 import '../../widgets/menu_widget.dart';
 import '../../widgets/shift_card.dart';
+import '../../widgets/voice_widget.dart';
 import '../camera_scanner/camera_scanner.dart';
 import '../note/note_grid.dart';
 import '../bot_screen/bot.dart';
@@ -147,6 +148,8 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: Colors.black,
         title: const Text("Dashboard"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
+
       ),
       body: Column(
         children: [
@@ -202,15 +205,15 @@ class _DashboardState extends State<Dashboard> {
   Widget _body() => Stack(
     children: [
       _listView(),
-      Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.white]
-            )
-        ),
-      )
+      // Container(
+      //   decoration: const BoxDecoration(
+      //       gradient: LinearGradient(
+      //           begin: Alignment.topCenter,
+      //           end: Alignment.bottomCenter,
+      //           colors: [Colors.white]
+      //       )
+      //   ),
+      // )
     ],
   );
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/strings.dart';
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _HistoryPageState extends State<HistoryPage> {
         backgroundColor: Colors.deepOrangeAccent,
         title: const Text(StringValues.titleHistoryPage),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }

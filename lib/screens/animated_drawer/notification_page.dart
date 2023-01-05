@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _NotificationPageState extends State<NotificationPage> {
         backgroundColor: Colors.green,
         title: const Text("Notification Page"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }
