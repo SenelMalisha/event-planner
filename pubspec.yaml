@@ -93,6 +93,10 @@ flutter:
     - assets/images/
     - assets/images/facebook.png
     - assets/images/google.png
+    - assets/images/bot.png
+    - assets/images/alarm.png
+    - assets/images/event.png
+    - assets/images/note.png
     - assets/lottie/faceid.json
     - assets/lottie/fingerprint.json
     - assets/lottie/security.json

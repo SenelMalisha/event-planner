@@ -1,3 +1,5 @@
+import 'package:event_planner/screens/bot_screen/bot.dart';
+import 'package:event_planner/screens/moments_screen/moments.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
@@ -11,7 +13,64 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final controller = ScrollController();
-  final double itemSize = 150;
+  final double itemSize = 75;
+
+  final screens = [
+    MyBot(),
+    Moments(),
+    MyBot(),
+    Moments(),
+    MyBot(),
+
+    MyBot(),
+    Moments(),
+    MyBot(),
+    Moments(),
+    MyBot(),
+    MyBot(),
+    Moments(),
+    MyBot(),
+    Moments(),
+    MyBot(),
+  ];
+
+  final icons = [
+    Icons.message_sharp,
+    Icons.event,
+    Icons.alarm,
+    Icons.menu_book,
+    Icons.monochrome_photos,
+
+    Icons.message_sharp,
+    Icons.event,
+    Icons.alarm,
+    Icons.menu_book,
+    Icons.monochrome_photos,
+    Icons.message_sharp,
+    Icons.event,
+    Icons.alarm,
+    Icons.menu_book,
+    Icons.monochrome_photos
+  ];
+
+  final List<String> titleList = [
+    "My Bot",
+    "Events",
+    "Alarms",
+    "My Notes",
+    "Moments",
+
+    "My Bot",
+    "Events",
+    "Alarms",
+    "My Notes",
+    "Moments",
+    "My Bot",
+    "Events",
+    "Alarms",
+    "My Notes",
+    "Moments",
+  ];
 
   void onListenerController(){
     setState(() {
@@ -62,7 +121,7 @@ class _DashboardState extends State<Dashboard> {
   Widget _listView() => SizedBox(
     height: MediaQuery.of(context).size.height,
     child: ListView.builder(
-      itemCount: 20,
+      itemCount: titleList.length,
       controller: controller,
       itemBuilder:(context, index) {
         final itemOffset = index*itemSize;
@@ -85,15 +144,49 @@ class _DashboardState extends State<Dashboard> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               height: itemSize,
-              margin: EdgeInsets.all(5),
+              margin: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
               decoration: BoxDecoration(
-                  color: Colors.cyan,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: const [
-                    BoxShadow(color: Colors.tealAccent, blurRadius: 1, spreadRadius: 2)
+                    BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)
                   ]
               ),
-              child: Text('$index', style: const TextStyle(color: Colors.white, fontSize: 45),),
+              child: ElevatedButton(
+                child: Container(
+                  padding: EdgeInsets.only(left: 50, right: 50),
+                  child: Row(
+                    children: [
+                      Icon(icons[index]),
+                      Container(
+                        width: 40,
+                      ),
+                      Expanded(
+                        child: Text(
+                          titleList[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => screens[index]),
+                  );
+                  print('$index');
+                },
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.indigo,
+                    textStyle: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold)
+                ),
+              )
             ),
           ),
         );
