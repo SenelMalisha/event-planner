@@ -36,6 +36,7 @@ dependencies:
   lottie: ^2.1.0
   google_ml_kit: ^0.7.3
   image_picker: ^0.8.6
+  floor: ^1.4.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -44,6 +45,9 @@ dependencies:
   introduction_screen: ^3.1.2
   flutter_zoom_drawer: 2.1.1
   shimmer: ^2.0.0
+  card_flip: ^0.0.5
+  get_it: ^7.2.0
+  flutter_staggered_animations: ^1.0.0
 
 
 flutter_native_splash:
@@ -54,6 +58,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_native_splash: ^2.2.16
+  floor_generator: ^1.4.1
+  build_runner: ^2.1.2
 
 flutter_icons:
   android: true
