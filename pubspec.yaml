@@ -36,6 +36,9 @@ dependencies:
   lottie: ^2.1.0
   google_ml_kit: ^0.7.3
   image_picker: ^0.8.6
+  dialog_flowtter:
+  flutter_svg: ^1.1.6
+  flutter_staggered_grid_view: ^0.4.0
   floor: ^1.4.1
 
   # The following adds the Cupertino Icons font to your application.
@@ -100,7 +103,12 @@ flutter:
     - assets/images/
     - assets/images/facebook.png
     - assets/images/google.png
+    - assets/images/bot.png
+    - assets/images/alarm.png
+    - assets/images/event.png
+    - assets/images/note.png
     - assets/lottie/faceid.json
     - assets/lottie/fingerprint.json
     - assets/lottie/security.json
     - assets/lottie/biometric.json
+    - assets/dialog_flow_auth.json
