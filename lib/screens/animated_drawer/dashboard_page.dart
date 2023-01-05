@@ -205,15 +205,15 @@ class _DashboardState extends State<Dashboard> {
   Widget _body() => Stack(
     children: [
       _listView(),
-      Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.white]
-            )
-        ),
-      )
+      // Container(
+      //   decoration: const BoxDecoration(
+      //       gradient: LinearGradient(
+      //           begin: Alignment.topCenter,
+      //           end: Alignment.bottomCenter,
+      //           colors: [Colors.white]
+      //       )
+      //   ),
+      // )
     ],
   );
 
