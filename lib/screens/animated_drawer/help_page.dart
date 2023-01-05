@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _HelpPageState extends State<HelpPage> {
         backgroundColor: Colors.deepPurpleAccent,
         title: const Text("Help"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }

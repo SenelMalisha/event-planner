@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class AboutUsPage extends StatefulWidget {
   const AboutUsPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
         backgroundColor: Colors.deepOrangeAccent,
         title: const Text("About Us"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }

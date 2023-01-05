@@ -5,6 +5,7 @@ import '../../utils/constants.dart';
 import '../../widgets/heighlight_card.dart';
 import '../../widgets/menu_widget.dart';
 import '../../widgets/shift_card.dart';
+import '../../widgets/voice_widget.dart';
 import '../camera_scanner/camera_scanner.dart';
 
 class Dashboard extends StatefulWidget {
@@ -72,6 +73,8 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: Colors.black,
         title: const Text("Dashboard"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
+
       ),
       body: Column(
         children: [

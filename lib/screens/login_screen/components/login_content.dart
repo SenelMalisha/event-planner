@@ -61,10 +61,12 @@ class _LoginContentState extends State<LoginContent>
       child: ElevatedButton(
         onPressed: () {
           if(title == "Log In"){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const OnBoardingHome()),
-            );
+            Navigator.pushReplacement(
+              context,MaterialPageRoute(builder: (context) => OnBoardingHome()),);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const OnBoardingHome()),
+            // );
           }
 
 

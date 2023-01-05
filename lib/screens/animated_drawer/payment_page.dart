@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _PaymentPageState extends State<PaymentPage> {
         backgroundColor: Colors.blueAccent,
         title: const Text("Payment Page"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }

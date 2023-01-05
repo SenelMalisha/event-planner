@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/menu_widget.dart';
+import '../../widgets/voice_widget.dart';
 
 class RateUsPage extends StatefulWidget {
   const RateUsPage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _RateUsPageState extends State<RateUsPage> {
         backgroundColor: Colors.teal,
         title: const Text("Rate Us"),
         leading: const MenuWidget(),
+        actions: [VoiceWidget()],
       ),
     );
   }
