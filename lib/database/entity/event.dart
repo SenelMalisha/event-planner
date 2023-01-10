@@ -1,0 +1,15 @@
+import 'package:floor/floor.dart';
+
+@entity
+class Event {
+  @PrimaryKey(autoGenerate: true)
+  int? id;
+  final String title;
+  final String description;
+  final String eventType;
+  final String location;
+  final String time;
+
+
+  Event(this.title, this.description, this.eventType, this.location, this.time);
+}

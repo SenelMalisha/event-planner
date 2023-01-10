@@ -64,8 +64,8 @@ class _DashboardState extends State<Dashboard> {
     ChatScreen(),
     ChatScreen(),
     ChatScreen(),
+    NotesGridView(),
     Moments(),
-    ChatScreen(),
     Moments(),
     ChatScreen(),
     Moments(),
@@ -244,16 +244,9 @@ class _DashboardState extends State<Dashboard> {
               width: MediaQuery.of(context).size.width,
               height: itemSize,
               margin: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [
-                    BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)
-                  ]
-              ),
               child: ElevatedButton(
                 child: Container(
-                  padding: EdgeInsets.only(left: 50, right: 50),
+                  padding: EdgeInsets.only(left: 16, right: 50),
                   child: Row(
                     children: [
                       Icon(icons[index]),
@@ -263,9 +256,9 @@ class _DashboardState extends State<Dashboard> {
                       Expanded(
                         child: Text(
                           titleList[index],
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(
-                            fontSize: 18
+                            fontSize: 15,
                           ),
                         ),
                       )
@@ -280,10 +273,10 @@ class _DashboardState extends State<Dashboard> {
                   print('$index');
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: bgDark,
-                    textStyle: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold)
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  primary: bgDark,
+                  elevation: 10,
+                  shadowColor: Colors.black87,
                 ),
               )
             ),
