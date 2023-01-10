@@ -32,11 +32,11 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("My bot"),
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.black,
         ),
         body: Container(
           decoration: BoxDecoration(
-            color: Colors.black87
+            color: Colors.white70
           ),
           child: Column(
             children: [
@@ -44,13 +44,13 @@ class _ChatScreenState extends State<ChatScreen> {
                 messages: messages, scrollController: scrollController,)),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                color: Colors.teal,
+                color: Colors.black,
                 child: Row(
                   children: [
                     Expanded(
                         child: TextField(
                           controller: _controller,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Enter a message'

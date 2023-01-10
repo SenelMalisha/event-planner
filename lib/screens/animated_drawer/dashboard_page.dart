@@ -78,20 +78,20 @@ class _DashboardState extends State<Dashboard> {
     ChatScreen(),
   ];
 
-  final icons = [
-    Icons.message_sharp,
-    Icons.event,
-    Icons.alarm,
-    Icons.menu_book,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
+  final List<String> images = [
+    "assets/images/botBack.png",
+    "assets/images/eventBack.png",
+    "assets/images/alarmBack.jpg",
+    "assets/images/noteBack.jpg",
+    "assets/images/momentsBack.jpg",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
   ];
 
   final List<String> titleList = [
@@ -223,9 +223,11 @@ class _DashboardState extends State<Dashboard> {
       itemCount: titleList.length,
       controller: controller,
       itemBuilder:(context, index) {
-        final itemOffset = index*itemSize;
+        final itemOffset = index*itemSize*2;
         final difference = controller.offset-itemOffset;
         final percent = 1-(difference/(itemSize/2));
+
+        var backImage = images[index];
 
         double opacity = percent;
         double scale = percent;
@@ -242,10 +244,9 @@ class _DashboardState extends State<Dashboard> {
             child: Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              height: itemSize,
+              height: 150,
               margin: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
               decoration: BoxDecoration(
-                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: const [
                     BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)
@@ -253,24 +254,31 @@ class _DashboardState extends State<Dashboard> {
               ),
               child: ElevatedButton(
                 child: Container(
-                  padding: EdgeInsets.only(left: 50, right: 50),
-                  child: Row(
-                    children: [
-                      Icon(icons[index]),
-                      Container(
-                        width: 40,
-                      ),
-                      Expanded(
-                        child: Text(
-                          titleList[index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "$backImage",
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                          fit: BoxFit.cover),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        color: Colors.black54,
+                      ),
+                        child: Center(
+                          child: Text(
+                            titleList[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20
+                            ),
+                          ),
+                        )
+                    ),
                 ),
                 onPressed: (){
                   Navigator.push(
@@ -280,10 +288,14 @@ class _DashboardState extends State<Dashboard> {
                   print('$index');
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: bgDark,
-                    textStyle: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold)
+                  padding: EdgeInsets.all(0),
+                  primary: Colors.black,
+                  textStyle: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // <-- Radius
+                  ),
                 ),
               )
             ),
