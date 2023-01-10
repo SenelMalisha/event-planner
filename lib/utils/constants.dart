@@ -30,6 +30,11 @@ const NoteColor = Color(0xFF535353);
 const Ocean4 = Color(0xFF26467F);
 const ContainerColor = Color(0xFFDFDFDF);
 const primaryColor = Color(0xFF0D2440);
+const colorPrimaryComplaintsApp = Color(0xFF63C3EF);
+const mainColor = Color(0xff2e77d3);
+const DropColor = Color(0x14000000);
+const LinearColor2 = Color(0xFF3870A3);
+const LinearColor1 = Color(0xFF26467F);
 
 
 

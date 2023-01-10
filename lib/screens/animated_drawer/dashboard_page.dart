@@ -10,6 +10,7 @@ import '../../widgets/menu_widget.dart';
 import '../../widgets/shift_card.dart';
 import '../../widgets/voice_widget.dart';
 import '../camera_scanner/camera_scanner.dart';
+import '../events/events_home.dart';
 import '../note/note_grid.dart';
 import '../bot_screen/bot.dart';
 
@@ -62,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
 
   final screens = [
     ChatScreen(),
-    ChatScreen(),
+    ComplaintsAppDashboardView(),
     ChatScreen(),
     NotesGridView(),
     Moments(),
