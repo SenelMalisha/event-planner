@@ -87,7 +87,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Event` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `eventType` TEXT NOT NULL, `location` TEXT NOT NULL, `time` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Event` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `eventType` TEXT NOT NULL, `location` TEXT NOT NULL, `time` TEXT NOT NULL, `date` TEXT NOT NULL, `background` TEXT NOT NULL)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Reminder` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `time` TEXT NOT NULL, `isRepeat` INTEGER NOT NULL)');
         await database.execute(
@@ -140,7 +140,9 @@ class _$AppDao extends AppDao {
                   'description': item.description,
                   'eventType': item.eventType,
                   'location': item.location,
-                  'time': item.time
+                  'time': item.time,
+                  'date': item.date,
+                  'background': item.background
                 }),
         _reminderInsertionAdapter = InsertionAdapter(
             database,
@@ -206,7 +208,9 @@ class _$AppDao extends AppDao {
             row['description'] as String,
             row['eventType'] as String,
             row['location'] as String,
-            row['time'] as String));
+            row['time'] as String,
+            row['date'] as String,
+            row['background'] as String));
   }
 
   @override

@@ -9,7 +9,9 @@ class Event {
   final String eventType;
   final String location;
   final String time;
+  final String date;
+  final String background;
 
 
-  Event(this.title, this.description, this.eventType, this.location, this.time);
+  Event(this.title, this.description, this.eventType, this.location, this.time, this.date, this.background);
 }
