@@ -7,6 +7,9 @@ const kPrimaryColor = Color(0xFFFFFFFF);
 const kSecondaryColor = Color(0xFF265DAB);
 const whiteColor = Color(0xFFFFFFFF);
 const accent = Color(0xFFFFD700);
+const bgChat = Color(0xFF1E1B38);
+const bgChatMessage = Color(0xFF054640);
+const bgInputMessage = Color(0xFF2C373D);
 
 const bgDark = Color(0xFF000000);
 const bgLight = Color(0x203A3A3A);

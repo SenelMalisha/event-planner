@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  dialogflow_grpc
   local_auth_windows
   url_launcher_windows
 )

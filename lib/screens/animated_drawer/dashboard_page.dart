@@ -61,21 +61,21 @@ class _DashboardState extends State<Dashboard> {
   final double itemSize = 50;
 
   final screens = [
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
+    MyApp(),
+    MyApp(),
+    MyApp(),
     Moments(),
-    ChatScreen(),
+    MyApp(),
     Moments(),
-    ChatScreen(),
+    MyApp(),
     Moments(),
-    ChatScreen(),
+    MyApp(),
     Moments(),
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
+    MyApp(),
+    MyApp(),
+    MyApp(),
+    MyApp(),
+    MyApp(),
   ];
 
   final List<String> images = [
