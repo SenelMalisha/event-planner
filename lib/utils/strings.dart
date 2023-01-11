@@ -12,4 +12,7 @@ class StringValues {
   static const lblPickNewImage = "Pick new image";
   static const lblCopyTextToNote = "Add to note";
   static const titleHistoryPage = "History Page";
+  static const lblTime = "Time: ";
+  static const lblDate = "Date: ";
+  static const lblLocation = "Venue: ";
 }

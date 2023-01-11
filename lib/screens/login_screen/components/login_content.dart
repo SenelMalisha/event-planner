@@ -1,7 +1,10 @@
+import 'package:event_planner/database/entity/user.dart';
 import 'package:event_planner/screens/camera_scanner/camera_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
+import '../../../database/repository/app_repository.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/helper_functions.dart';
 import '../../biometrics/register_biometric.dart';
@@ -17,7 +20,6 @@ enum Screens {
 
 class LoginContent extends StatefulWidget {
   const LoginContent({Key? key}) : super(key: key);
-
   @override
   State<LoginContent> createState() => _LoginContentState();
 }
@@ -26,8 +28,13 @@ class _LoginContentState extends State<LoginContent>
     with TickerProviderStateMixin {
   late final List<Widget> createAccountContent;
   late final List<Widget> loginContent;
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  static AppRepository _appRepository = GetIt.instance.get<AppRepository>();
 
-  Widget inputField(String hint, IconData iconData) {
+  Widget inputField(String hint, IconData iconData, TextEditingController textEditingController) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
       child: SizedBox(
@@ -38,6 +45,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(30),
           child: TextField(
+            controller: textEditingController,
             style: TextStyle(color: bgTextColorBlack),
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
@@ -64,10 +72,10 @@ class _LoginContentState extends State<LoginContent>
           if(title == "Log In"){
             Navigator.pushReplacement(
               context,MaterialPageRoute(builder: (context) => OnBoardingHome()),);
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const OnBoardingHome()),
-            // );
+
+          } else {
+            User user = User(usernameController.text, passwordController.text, emailController.text, false);
+            _appRepository.addUser(user);
           }
 
 
@@ -180,9 +188,9 @@ class _LoginContentState extends State<LoginContent>
   @override
   void initState() {
     createAccountContent = [
-      inputField('Name', Ionicons.person_outline),
-      inputField('Email', Ionicons.mail_outline),
-      inputField('Password', Ionicons.lock_closed_outline),
+      inputField('Name', Ionicons.person_outline, usernameController),
+      inputField('Email', Ionicons.mail_outline, emailController),
+      inputField('Password', Ionicons.lock_closed_outline, passwordController),
       loginButton('Sign Up'),
       orDivider(),
       logos(),
@@ -190,8 +198,8 @@ class _LoginContentState extends State<LoginContent>
     ];
 
     loginContent = [
-      inputField('Email', Ionicons.mail_outline),
-      inputField('Password', Ionicons.lock_closed_outline),
+      inputField('Email', Ionicons.mail_outline,emailController),
+      inputField('Password', Ionicons.lock_closed_outline, passwordController),
       loginButton('Log In'),
       forgotPassword(),
     ];

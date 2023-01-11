@@ -10,6 +10,8 @@ import '../../widgets/menu_widget.dart';
 import '../../widgets/shift_card.dart';
 import '../../widgets/voice_widget.dart';
 import '../camera_scanner/camera_scanner.dart';
+import '../event_management/events_home.dart';
+import '../event_management/more_information.dart';
 import '../note/note_grid.dart';
 import '../bot_screen/bot.dart';
 
@@ -61,21 +63,21 @@ class _DashboardState extends State<Dashboard> {
   final double itemSize = 50;
 
   final screens = [
-    MyApp(),
-    MyApp(),
-    MyApp(),
+    ChatScreen(),
+    ComplaintsAppDashboardView(),
+    ChatScreen(),
+    NotesGridView(),
     Moments(),
-    MyApp(),
+    MoreInfo(),
+    ChatScreen(),
     Moments(),
-    MyApp(),
+    ChatScreen(),
     Moments(),
-    MyApp(),
-    Moments(),
-    MyApp(),
-    MyApp(),
-    MyApp(),
-    MyApp(),
-    MyApp(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
+    ChatScreen(),
   ];
 
   final List<String> images = [

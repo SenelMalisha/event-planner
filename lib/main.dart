@@ -1,5 +1,6 @@
 import 'package:event_planner/database/dao/app_dao.dart';
 import 'package:event_planner/database/repository/app_repository.dart';
+import 'package:event_planner/providers/dashboard_provider.dart';
 import 'package:event_planner/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,11 +10,17 @@ import 'package:sizer/sizer.dart';
 import 'database/database.dart';
 import 'screens/login_screen/login_screen.dart';
 import 'utils/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDatabase();
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => DashboardProvider()),
+  ],child: const MyApp()));
+
+
 }
 
 void initializeDatabase() {
@@ -47,6 +54,12 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           home: const LoginScreen(),
+          localizationsDelegates: [
+            GlobalWidgetsLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [Locale('en', 'US')],
         );
       }),
     );
