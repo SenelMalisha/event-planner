@@ -2,7 +2,7 @@ import 'package:event_planner/screens/bot_screen/bot.dart';
 import 'package:event_planner/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
+class BotScreen extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
