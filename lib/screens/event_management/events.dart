@@ -1,8 +1,6 @@
 import 'package:event_planner/models/event_model.dart';
-import 'package:event_planner/screens/events/event_detail_page.dart';
 import 'package:flutter/material.dart';
 
-<<<<<<< HEAD:lib/screens/events/events.dart
 import '../../utils/app_utils.dart';
 import '../../utils/constants.dart';
 import '../../utils/text_style.dart';
@@ -11,8 +9,8 @@ import '../../widgets/nearby_event_card.dart';
 import '../../widgets/ui_helper.dart';
 import '../../widgets/upcoming_event_card.dart';
 import 'add_event.dart';
-=======
->>>>>>> master:lib/screens/event_management/events.dart
+import 'event_detail_page.dart';
+
 
 class events extends StatefulWidget {
   const events({Key? key}) : super(key: key);
@@ -21,7 +19,6 @@ class events extends StatefulWidget {
   State<events> createState() => _eventsState();
 }
 
-<<<<<<< HEAD:lib/screens/events/events.dart
 class _eventsState extends State<events> with TickerProviderStateMixin  {
   int _currentIndex = 0;
 
@@ -69,10 +66,6 @@ class _eventsState extends State<events> with TickerProviderStateMixin  {
     opacityController.dispose();
     super.dispose();
   }
-
-=======
-class _eventsState extends State<events> {
->>>>>>> master:lib/screens/event_management/events.dart
 
   @override
   Widget build(BuildContext context) {
