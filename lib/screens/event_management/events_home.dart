@@ -1,5 +1,6 @@
 
 import 'package:event_planner/screens/event_management/remainders.dart';
+import 'package:event_planner/screens/event_management/shedules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class ComplaintsAppDashboardView extends StatelessWidget {
               ? events()
           :
           dashboardProvider.currentTab == 1
-              ? SchedulerHome()
+              ? Schedules()
               : remainders(),
         ),
         bottomNavigationBar: bottomNavigationBar(dashboardProvider));
