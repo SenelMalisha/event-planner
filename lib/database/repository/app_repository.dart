@@ -30,7 +30,7 @@ class AppRepository {
     return _appDao.getAllEvents();
   }
 
-  void a(Event event) {
+  void addEvent(Event event) {
     _appDao.insertEvent(event);
   }
 

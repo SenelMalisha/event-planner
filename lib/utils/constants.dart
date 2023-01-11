@@ -3,6 +3,7 @@ export 'package:intl/intl.dart';
 
 // Colors
 const kBackgroundColor = Color(0xFFFFFFFF);
+const kFaded = Color(0xFFF1F1F1);
 const kPrimaryColor = Color(0xFFFFFFFF);
 const kSecondaryColor = Color(0xFF265DAB);
 const whiteColor = Color(0xFFFFFFFF);

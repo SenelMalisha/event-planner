@@ -1,7 +1,6 @@
 
-import 'package:event_planner/screens/events/events.dart';
-import 'package:event_planner/screens/events/remainders.dart';
-import 'package:event_planner/screens/events/shedules.dart';
+import 'package:event_planner/screens/event_management/remainders.dart';
+import 'package:event_planner/screens/event_management/shedules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../providers/dashboard_provider.dart';
 import '../../utils/constants.dart';
 import '../scheduler/scheduler.dart';
+import 'events.dart';
 
 class ComplaintsAppDashboardView extends StatelessWidget {
   @override
@@ -36,7 +36,7 @@ class ComplaintsAppDashboardView extends StatelessWidget {
               ? events()
           :
           dashboardProvider.currentTab == 1
-              ? SchedulerHome()
+              ? Schedules()
               : remainders(),
         ),
         bottomNavigationBar: bottomNavigationBar(dashboardProvider));
@@ -44,6 +44,7 @@ class ComplaintsAppDashboardView extends StatelessWidget {
 
   BottomNavigationBar bottomNavigationBar(DashboardProvider dashboardProvider) {
     return BottomNavigationBar(
+      backgroundColor: kBackgroundColor,
       currentIndex: dashboardProvider.currentTab,
       items: [
         BottomNavigationBarItem(
