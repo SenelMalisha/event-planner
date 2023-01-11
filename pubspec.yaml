@@ -109,6 +109,8 @@ flutter:
           weight: 700
 
   assets:
+    - assets/img/
+    - assets/icons/
     - assets/lottie/
     - assets/images/
     - assets/images/facebook.png

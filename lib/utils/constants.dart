@@ -37,5 +37,16 @@ const DropColor = Color(0x14000000);
 const LinearColor2 = Color(0xFF3870A3);
 const LinearColor1 = Color(0xFF26467F);
 
+const pureWhite = const Color(0xFFFFFFFF);
+const pureBlack = const Color(0xFF000000);
+
+// Grey Colors
+const darkGrey = const Color(0xFFC2C2C2);
+const lightGrey = const Color(0xFFF7F7F7);
+
+const Color lime = Color.fromRGBO(240, 203, 148, 1);
+const Color orange = Color.fromRGBO(255, 158, 107, 1);
+const Color primaryLight = Color.fromRGBO(240, 234, 248, 1);
+const Color imgBG = Color.fromRGBO(230, 230, 254, 1);
 
 
