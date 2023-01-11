@@ -95,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   final List<String> titleList = [
-    "My Bot",
+    "Talk to Enola",
     "Events",
     "Alarms",
     "My Notes",
@@ -223,7 +223,7 @@ class _DashboardState extends State<Dashboard> {
       itemCount: titleList.length,
       controller: controller,
       itemBuilder:(context, index) {
-        final itemOffset = index*itemSize*2;
+        final itemOffset = index*itemSize*2.5;
         final difference = controller.offset-itemOffset;
         final percent = 1-(difference/(itemSize/2));
 
@@ -244,8 +244,8 @@ class _DashboardState extends State<Dashboard> {
             child: Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              height: 150,
-              margin: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
+              height: 120,
+              margin: EdgeInsets.only(left: 5, top: 5, right: 5, bottom: 5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: const [
