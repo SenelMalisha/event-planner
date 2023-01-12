@@ -15,4 +15,8 @@ class StringValues {
   static const lblTime = "Time: ";
   static const lblDate = "Date: ";
   static const lblLocation = "Venue: ";
+  static const lblSearchReminder = "Search your reminders";
+  static const lblResults = "Results";
+  static const lblPersonal = "Personal";
+  static const lblWork = "Work";
 }
