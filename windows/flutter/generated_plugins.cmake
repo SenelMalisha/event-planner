@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  dialogflow_grpc
   flutter_localization
   local_auth_windows
   url_launcher_windows
