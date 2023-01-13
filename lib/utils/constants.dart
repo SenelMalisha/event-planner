@@ -11,6 +11,7 @@ const accent = Color(0xFFFFD700);
 const bgChat = Color(0xFF1E1B38);
 const bgChatMessage = Color(0xFF054640);
 const bgInputMessage = Color(0xFF2C373D);
+const transparent = Color(0xFFFFFF);
 
 const bgDark = Color(0xFF000000);
 const bgBlackLight = Color(0xFF181717);

@@ -3,15 +3,16 @@ import 'package:event_planner/utils/strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/custom_shape_clipper.dart';
+import 'add_reminder.dart';
 
-class remainders extends StatefulWidget {
-  const remainders({Key? key}) : super(key: key);
+class Reminders extends StatefulWidget {
+  const Reminders({Key? key}) : super(key: key);
 
   @override
-  State<remainders> createState() => _remaindersState();
+  State<Reminders> createState() => _RemindersState();
 }
 
-class _remaindersState extends State<remainders> {
+class _RemindersState extends State<Reminders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,9 +119,15 @@ class _ReminderScreenTopState extends State<ReminderScreenTop> {
                           ],
                         ),
                         Spacer(),
-                        Icon(
-                          Icons.add,
-                          color: kBackgroundColor,
+                        GestureDetector(
+                          onTap:() {
+                            Navigator.push(
+                              context,MaterialPageRoute(builder: (context) => AddReminder()),);
+                          },
+                          child: Icon(
+                            Icons.add,
+                            color: kBackgroundColor,
+                          ),
                         )
                       ],
                     ),
