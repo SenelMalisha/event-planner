@@ -66,6 +66,10 @@ dependencies:
   flutter_localization: ^0.1.9
   folding_cell: ^1.0.0
   confetti: ^0.7.0
+  dio: ^4.0.6
+  google_maps_flutter: ^2.2.3
+  flutter_polyline_points: ^1.0.0
+  geolocator: ^9.0.2
 
 flutter_native_splash:
   color: "#2e2c28"
