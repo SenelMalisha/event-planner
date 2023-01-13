@@ -19,4 +19,8 @@ class StringValues {
   static const lblResults = "Results";
   static const lblPersonal = "Personal";
   static const lblWork = "Work";
+  static const lblAddReminder = "Add Reminder";
+  static const lblReminderTitle = "Title";
+  static const lblReminderType = "Type";
+  static const lblRepeatReminder = "Repeat reminder";
 }
