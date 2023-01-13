@@ -1,106 +1,35 @@
-import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:event_planner/screens/bot_screen/bot.dart';
+import 'package:event_planner/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-/** created by Himashi Bogahawaththa **/
-/** Eyepax IT Consulting (Pvt) Ltd **/
-/** created on 1/5/2023 at 12:57 PM **/
-
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
-
+class BotScreen extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: bgDark,
+        ),
+      ),
+      home: MyHomePage(),
+    );
+  }
 }
 
-class _ChatScreenState extends State<ChatScreen> {
-  late DialogFlowtter dialogFlowtter;
-  final TextEditingController _controller = TextEditingController();
-
-  List<Map<String, dynamic>> messages = [];
-
-  ScrollController scrollController = ScrollController();
-
+class MyHomePage extends StatefulWidget {
   @override
-  void initState() {
-    DialogFlowtter.fromFile().then((instance) => dialogFlowtter = instance);
-    super.initState();
-  }
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("My bot"),
-          backgroundColor: Colors.teal,
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-            color: Colors.black87
-          ),
-          child: Column(
-            children: [
-              Expanded(child: MyBot(
-                messages: messages, scrollController: scrollController,)),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                color: Colors.teal,
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          style: const TextStyle(color: Colors.white),
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Enter a message'
-                          ),
-                        )
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          scrollController.animateTo(
-                            scrollController.position.maxScrollExtent,
-                            curve: Curves.easeOut,
-                            duration: const Duration(milliseconds: 300),
-                          );
-                          sendMessage(_controller.text);
-                          _controller.clear();
-                        },
-                        icon: const Icon(Icons.send, color: Colors.white70,))
-                  ],
-                ),
-              )
-            ],
-          ),
+        body: Center(
+            child: Bot()
         )
     );
   }
-
-  sendMessage(String text) async {
-    if (text.isEmpty) {
-      print('Message is empty');
-    }
-    else {
-
-      //User message
-      setState(() {
-        addMessage(Message(text: DialogText(text: [text])), true);
-      });
-
-      //bot response
-      DetectIntentResponse response = await dialogFlowtter.detectIntent(
-          queryInput: QueryInput(text: TextInput(text: text)));
-
-      if (response.message == null) return;
-      setState(() {
-        addMessage(response.message!);
-      });
-    }
-  }
-
-  addMessage(Message message, [bool isUserMessage = false]) {
-    messages.add({'message': message, 'isUserMessage': isUserMessage});
-  }
-
 }

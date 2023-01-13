@@ -63,41 +63,41 @@ class _DashboardState extends State<Dashboard> {
   final double itemSize = 50;
 
   final screens = [
-    ChatScreen(),
+    BotScreen(),
     ComplaintsAppDashboardView(),
-    ChatScreen(),
+    BotScreen(),
     NotesGridView(),
     Moments(),
     MoreInfo(),
-    ChatScreen(),
+    BotScreen(),
     Moments(),
-    ChatScreen(),
+    BotScreen(),
     Moments(),
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
-    ChatScreen(),
+    BotScreen(),
+    BotScreen(),
+    BotScreen(),
+    BotScreen(),
+    BotScreen(),
   ];
 
-  final icons = [
-    Icons.message_sharp,
-    Icons.event,
-    Icons.alarm,
-    Icons.menu_book,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
-    Icons.monochrome_photos,
+  final List<String> images = [
+    "assets/images/botBack.png",
+    "assets/images/eventBack.png",
+    "assets/images/alarmBack.jpg",
+    "assets/images/noteBack.jpg",
+    "assets/images/momentsBack.jpg",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
+    "assets/images/ph2.png",
   ];
 
   final List<String> titleList = [
-    "My Bot",
+    "Talk to Enola",
     "Events",
     "Alarms",
     "My Notes",
@@ -225,9 +225,11 @@ class _DashboardState extends State<Dashboard> {
       itemCount: titleList.length,
       controller: controller,
       itemBuilder:(context, index) {
-        final itemOffset = index*itemSize;
+        final itemOffset = index*itemSize*2.5;
         final difference = controller.offset-itemOffset;
         final percent = 1-(difference/(itemSize/2));
+
+        var backImage = images[index];
 
         double opacity = percent;
         double scale = percent;
@@ -244,28 +246,41 @@ class _DashboardState extends State<Dashboard> {
             child: Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              height: itemSize,
-              margin: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
+              height: 120,
+              margin: EdgeInsets.only(left: 5, top: 5, right: 5, bottom: 5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)
+                  ]
+              ),
               child: ElevatedButton(
                 child: Container(
-                  padding: EdgeInsets.only(left: 16, right: 50),
-                  child: Row(
-                    children: [
-                      Icon(icons[index]),
-                      Container(
-                        width: 40,
-                      ),
-                      Expanded(
-                        child: Text(
-                          titleList[index],
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 15,
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "$backImage",
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                          fit: BoxFit.cover),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        color: Colors.black54,
+                      ),
+                        child: Center(
+                          child: Text(
+                            titleList[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20
+                            ),
+                          ),
+                        )
+                    ),
                 ),
                 onPressed: (){
                   Navigator.push(
@@ -275,10 +290,14 @@ class _DashboardState extends State<Dashboard> {
                   print('$index');
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  primary: bgDark,
-                  elevation: 10,
-                  shadowColor: Colors.black87,
+                  padding: EdgeInsets.all(0),
+                  primary: Colors.black,
+                  textStyle: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // <-- Radius
+                  ),
                 ),
               )
             ),
