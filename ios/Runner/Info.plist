@@ -36,6 +36,10 @@
         <string>Speech Recognition is required</string>
         <key>NSMicrophoneUsageDescription</key>
         <string>Microphone is required to record audio</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>This app needs access to location when open.</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>This app needs access to location when in the background.</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>

@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/text_style.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -14,12 +15,51 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  static const initialCameraPosition = CameraPosition(target: LatLng(5.9717, 80.6951),zoom: 11.5);
+  CameraPosition initialCameraPosition = CameraPosition(target: LatLng(5.9717, 80.6951),zoom: 11.5);
 
   late GoogleMapController googleMapController;
   Marker? origin;
   Marker? destination;
+  Marker? liveLocation;
   Directions? _info;
+  String? lat;
+  String? lng;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    getCurrentLocation().then((value) {
+      lat = value.latitude.toString();
+      lng = value.longitude.toString();
+      setState(() {
+        print("lats: $lat");
+        print("lngs: $lng");
+        isLoading = false;
+        if(lat != null && lng != null){
+         // initialCameraPosition = CameraPosition(target: LatLng(double.parse(lat!), double.parse(lng!)),zoom: 11.5);
+        }
+      });
+
+    });
+    super.initState();
+  }
+  Future<Position> getCurrentLocation() async{
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if(!serviceEnabled){
+      return Future.error("Location  Services are disabled");
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if(permission == LocationPermission.denied){
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied){
+        return Future.error("Location Permission are denied");
+      }
+    }
+    if(permission == LocationPermission.deniedForever){
+      return Future.error("Location Permission are denied forever. we cannot request");
+    }
+    return await Geolocator.getCurrentPosition();
+  }
 
   @override
   void dispose() {
@@ -29,7 +69,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading? Center(child: CircularProgressIndicator(),):  Scaffold(
       appBar: AppBar(
         centerTitle: false,
         title: Text("Location"),

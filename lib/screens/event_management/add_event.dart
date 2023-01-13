@@ -169,7 +169,7 @@ class _AddEventState extends State<AddEvent> {
                                 fit: BoxFit.fill,
                               ),
                               //SizedBox(height: 12.0,),
-                              Text('All Events',
+                              Text('Musical',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
@@ -274,7 +274,7 @@ class _AddEventState extends State<AddEvent> {
                                 fit: BoxFit.fill,
                               ),
                               //SizedBox(height: 12.0,),
-                              Text('More Events',
+                              Text('Other',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
