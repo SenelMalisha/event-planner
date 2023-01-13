@@ -14,7 +14,6 @@ class DirectionRepository {
         queryParameters: {
           "origin": "${origin.latitude},${origin.longitude}",
           "destination" : "${destination.latitude},${destination.longitude}",
-          "key" : "AIzaSyC6S3BAvLFoMWJGVB0erqfDz0PPxWYhq08"
     });
     if(response.statusCode == 200){
       return Directions.fromMap(response.data);
