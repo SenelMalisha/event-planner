@@ -98,7 +98,9 @@ class AddReminderScreenBottom extends StatefulWidget {
 class _AddReminderScreenBottomState extends State<AddReminderScreenBottom> {
   static AppRepository _appRepository = GetIt.instance.get<AppRepository>();
   final List<bool> _selectedOption = <bool>[true, false];
+  final List<bool> _selectedType = <bool>[true, false];
   int repeatIndex = 0;
+  String selectedType = "Personal";
   DateTime selectedDate = DateTime.now();
   String selectedTime = "Select time";
   String pickedDate = "Select Date";
@@ -240,33 +242,75 @@ class _AddReminderScreenBottomState extends State<AddReminderScreenBottom> {
             SizedBox(
               height: 20.0,
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-              onPressed: () {
-                _appRepository.addReminder(Reminder(titleController.text, pickedDate, selectedTime, _selectedOption[repeatIndex]));
+            Text(
+              StringValues.lblReminderType,
+              style: const TextStyle(
+                  color: bgDark, fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            ToggleButtons(
+              direction: Axis.horizontal,
+              onPressed: (int index) {
+                setState(() {
+                  // The button that is tapped is set to true, and the others to false.
+                  for (int i = 0; i < _selectedType.length; i++) {
+                    _selectedType[i] = i == index;
+                    index == 0 ? selectedType = "Personal" : selectedType = "Work";
+                  }
+                });
               },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    side: BorderSide(color: bgDark)
-                ),
-                primary: bgDark,
-                elevation: 8,
-                shadowColor: Colors.black87,
+              borderWidth: 2,
+              borderColor: bgDark,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: bgDark,
+              selectedColor: kBackgroundColor,
+              fillColor: bgDark,
+              color: bgDark,
+              constraints: const BoxConstraints(
+                minHeight: 40.0,
+                minWidth: 80.0,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Text(
-                  StringValues.lblAddReminder,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700
+              isSelected: _selectedType,
+              children: [Text("Personal"), Text("Work")],
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 16),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Reminder added successfully"),
+                  ));
+                  _appRepository.addReminder(Reminder(selectedType, titleController.text, selectedTime, pickedDate,"false", _selectedOption[repeatIndex].toString()));
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      side: BorderSide(color: bgDark)
+                  ),
+                  primary: bgDark,
+                  elevation: 8,
+                  shadowColor: Colors.black87,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    StringValues.lblAddReminder,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700
+                    ),
                   ),
                 ),
-              ),
-            ))
+              )),
+            )
           ],
         ),
       ),

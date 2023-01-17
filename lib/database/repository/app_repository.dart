@@ -18,6 +18,10 @@ class AppRepository {
     _appDao.insertUser(user);
   }
 
+  Future<List<User>> getUser(String username, String password){
+    return _appDao.getUser(username, password);
+  }
+
   Future<List<Note>> getAllNotes(){
     return _appDao.getAllNotes();
   }
@@ -36,6 +40,10 @@ class AppRepository {
 
   Future<List<Reminder>> getReminder(){
     return _appDao.getAllReminders();
+  }
+
+  Future<List<Reminder>> getReminderBySearchText(String searchText, String type){
+    return _appDao.searchReminder(searchText, type);
   }
 
   void addReminder(Reminder reminder) {

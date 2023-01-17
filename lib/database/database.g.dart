@@ -89,7 +89,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Event` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `eventType` TEXT NOT NULL, `location` TEXT NOT NULL, `time` TEXT NOT NULL, `date` TEXT NOT NULL, `background` TEXT NOT NULL)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Reminder` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `time` TEXT NOT NULL, `isRepeat` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Reminder` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `type` TEXT NOT NULL, `title` TEXT NOT NULL, `time` TEXT NOT NULL, `date` TEXT NOT NULL, `isCompleted` TEXT NOT NULL, `isRepeat` TEXT NOT NULL)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Schedule` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `scheduleType` TEXT NOT NULL, `time` TEXT NOT NULL, `isRepeat` INTEGER NOT NULL)');
         await database.execute(
@@ -149,10 +149,12 @@ class _$AppDao extends AppDao {
             'Reminder',
             (Reminder item) => <String, Object?>{
                   'id': item.id,
+                  'type': item.type,
                   'title': item.title,
-                  'description': item.description,
                   'time': item.time,
-                  'isRepeat': item.isRepeat ? 1 : 0
+                  'date': item.date,
+                  'isCompleted': item.isCompleted,
+                  'isRepeat': item.isRepeat
                 },
             changeListener),
         _scheduleInsertionAdapter = InsertionAdapter(
@@ -182,6 +184,21 @@ class _$AppDao extends AppDao {
   final InsertionAdapter<Reminder> _reminderInsertionAdapter;
 
   final InsertionAdapter<Schedule> _scheduleInsertionAdapter;
+
+  @override
+  Future<List<User>> getUser(
+    String username,
+    String password,
+  ) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM User WHERE username = ?1 AND password = ?2',
+        mapper: (Map<String, Object?> row) => User(
+            row['username'] as String,
+            row['password'] as String,
+            row['email'] as String,
+            (row['isBiometric'] as int) != 0),
+        arguments: [username, password]);
+  }
 
   @override
   Future<List<Note>> getAllNotes() async {
@@ -227,20 +244,41 @@ class _$AppDao extends AppDao {
   Future<List<Reminder>> getAllReminders() async {
     return _queryAdapter.queryList('SELECT * FROM Reminder',
         mapper: (Map<String, Object?> row) => Reminder(
+            row['type'] as String,
             row['title'] as String,
-            row['description'] as String,
             row['time'] as String,
-            (row['isRepeat'] as int) != 0));
+            row['date'] as String,
+            row['isCompleted'] as String,
+            row['isRepeat'] as String));
+  }
+
+  @override
+  Future<List<Reminder>> searchReminder(
+    String searchText,
+    String type,
+  ) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM Reminder WHERE title LIKE ?1 AND type = ?2',
+        mapper: (Map<String, Object?> row) => Reminder(
+            row['type'] as String,
+            row['title'] as String,
+            row['time'] as String,
+            row['date'] as String,
+            row['isCompleted'] as String,
+            row['isRepeat'] as String),
+        arguments: [searchText, type]);
   }
 
   @override
   Stream<Reminder?> findReminderById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM Reminder WHERE id = ?1',
         mapper: (Map<String, Object?> row) => Reminder(
+            row['type'] as String,
             row['title'] as String,
-            row['description'] as String,
             row['time'] as String,
-            (row['isRepeat'] as int) != 0),
+            row['date'] as String,
+            row['isCompleted'] as String,
+            row['isRepeat'] as String),
         arguments: [id],
         queryableName: 'Reminder',
         isView: false);
