@@ -23,4 +23,6 @@ class StringValues {
   static const lblReminderTitle = "Title";
   static const lblReminderType = "Type";
   static const lblRepeatReminder = "Repeat reminder";
+  static const lblAddEvent = "Add Event";
+  static const lblLocationEvent = "Select Location: ";
 }
