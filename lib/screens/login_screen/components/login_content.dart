@@ -70,9 +70,17 @@ class _LoginContentState extends State<LoginContent>
       child: ElevatedButton(
         onPressed: () {
           if(title == "Log In"){
-            Navigator.pushReplacement(
-              context,MaterialPageRoute(builder: (context) => OnBoardingHome()),);
-
+            _appRepository.getUser(usernameController.text, passwordController.text).then((value) {
+              if(value.length>0) {
+                debugPrint(value.length.toString());
+                Navigator.pushReplacement(
+                  context,MaterialPageRoute(builder: (context) => OnBoardingHome()),);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Invalid username or password"),
+                ));
+              }
+            });
           } else {
             User user = User(usernameController.text, passwordController.text, emailController.text, false);
             _appRepository.addUser(user);
@@ -198,7 +206,7 @@ class _LoginContentState extends State<LoginContent>
     ];
 
     loginContent = [
-      inputField('Email', Ionicons.mail_outline,emailController),
+      inputField('Email', Ionicons.mail_outline,usernameController),
       inputField('Password', Ionicons.lock_closed_outline, passwordController),
       loginButton('Log In'),
       forgotPassword(),

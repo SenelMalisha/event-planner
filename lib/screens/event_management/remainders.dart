@@ -1,7 +1,10 @@
+import 'package:event_planner/database/entity/reminder.dart';
 import 'package:event_planner/utils/constants.dart';
 import 'package:event_planner/utils/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
+import '../../database/repository/app_repository.dart';
 import '../../widgets/custom_shape_clipper.dart';
 import 'add_reminder.dart';
 
@@ -13,13 +16,20 @@ class Reminders extends StatefulWidget {
 }
 
 class _RemindersState extends State<Reminders> {
+  String searchText = "";
+  bool isPersonal = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: <Widget>[ReminderScreenTop(), ReminderScreenBottom()],
+          children: <Widget>[ReminderScreenTop(onCountChanged: (String search, bool toggle){
+            setState(() {
+              searchText = search;
+              isPersonal = toggle;
+            });
+          },), ReminderScreenBottom(searchText: searchText, isPersonal: isPersonal,)],
         ),
       ),
     );
@@ -27,7 +37,8 @@ class _RemindersState extends State<Reminders> {
 }
 
 class ReminderScreenTop extends StatefulWidget {
-  const ReminderScreenTop({Key? key}) : super(key: key);
+  final Function(String, bool) onCountChanged;
+  const ReminderScreenTop({Key? key, required this.onCountChanged}) : super(key: key);
 
   @override
   State<ReminderScreenTop> createState() => _ReminderScreenTopState();
@@ -36,6 +47,8 @@ class ReminderScreenTop extends StatefulWidget {
 class _ReminderScreenTopState extends State<ReminderScreenTop> {
   var selectedDropdown = 0;
   bool isSelectedPersonal = true;
+  String searchText = "";
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -144,13 +157,20 @@ class _ReminderScreenTopState extends State<ReminderScreenTop> {
                     child: Material(
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                       child: TextField(
-                        controller: TextEditingController(
-                          text: reminderList[0],
-                        ),
+
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (value) {
+                          this.setState(() {
+                            searchText = value;
+                          });
+                          widget.onCountChanged(searchText, isSelectedPersonal);
+                        },
+                        controller: searchController,
                         style: const TextStyle(
                           color: bgTextColorBlack,
                         ),
                         decoration: InputDecoration(
+                          hintText: StringValues.lblSearchReminder,
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 32, vertical: 10),
                           suffix: Material(
@@ -220,6 +240,7 @@ class ReminderOptions extends StatefulWidget {
 }
 
 class _ReminderOptionsState extends State<ReminderOptions> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -255,15 +276,30 @@ class _ReminderOptionsState extends State<ReminderOptions> {
 }
 
 class ReminderScreenBottom extends StatefulWidget {
-  const ReminderScreenBottom({Key? key}) : super(key: key);
+  final String searchText;
+  final bool isPersonal;
+  const ReminderScreenBottom({Key? key, required this.searchText, required this.isPersonal}) : super(key: key);
 
   @override
   State<ReminderScreenBottom> createState() => _ReminderScreenBottomState();
 }
 
 class _ReminderScreenBottomState extends State<ReminderScreenBottom> {
+  static AppRepository _appRepository = GetIt.instance.get<AppRepository>();
+  List<Reminder> reminders = [];
+
+  @override
+  void initState() {
+    print("initstate");
+    _getRemindersFromDb();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _getRemindersFromDb();
+    });
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
@@ -285,29 +321,44 @@ class _ReminderScreenBottomState extends State<ReminderScreenBottom> {
             SizedBox(
               height: 10.0,
             ),
-            ListView(
+            ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               physics: ClampingScrollPhysics(),
-              children: [
-                ReminderCard(),
-                ReminderCard(),
-                ReminderCard(),
-                ReminderCard(),
-                ReminderCard(),
-                ReminderCard(),
-                ReminderCard(),
-              ],
+              itemCount: reminders.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ReminderCard(reminder: reminders[index]);
+              },
             )
           ],
         ),
       ),
     );
   }
+
+  void _getRemindersFromDb() async{
+    if(widget.searchText.isEmpty) {
+      print("EMPTY SEARCH");
+      _appRepository.getReminder().then((value) {
+        this.setState(() {
+          reminders = value.reversed.toList();
+        });
+      });
+    } else {
+      print("FILTER SEARCH");
+      _appRepository.getReminderBySearchText("%"+widget.searchText+"%", widget.isPersonal?"Personal":"Work").then((value) {
+        this.setState(() {
+          reminders = value.reversed.toList();
+        });
+      });
+    }
+
+  }
 }
 
 class ReminderCard extends StatelessWidget {
-  const ReminderCard({Key? key}) : super(key: key);
+  final Reminder reminder;
+  const ReminderCard({Key? key, required this.reminder }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -332,17 +383,17 @@ class ReminderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Water the plants",
+                        reminder.title,
                         style: const TextStyle(
                             color: bgDark,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.lineThrough),
+                            decoration: TextDecoration.none),
                       ),
                       Wrap(spacing: 8, runSpacing: -8, children: [
-                        ReminderChip(Icons.timer, "12:00 AM"),
-                        ReminderChip(Icons.calendar_month, "12 Jan 2022"),
-                        ReminderChip(Icons.loop, "on repeat"),
+                        ReminderChip(Icons.timer, reminder.time),
+                        ReminderChip(Icons.calendar_month, reminder.date),
+                        ReminderChip(Icons.loop, reminder.isRepeat),
                       ])
                     ],
                   ),
@@ -362,7 +413,7 @@ class ReminderCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Text(
-                  '1hr left',
+                  getRemainingDays(reminder.date),
                   style: TextStyle(color: kBackgroundColor, fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 decoration: BoxDecoration(
@@ -375,6 +426,20 @@ class ReminderCard extends StatelessWidget {
       ),
     );
   }
+
+  int daysBetween(DateTime from, DateTime now) {
+    from = DateTime(from.year, from.month, from.day);
+    now = DateTime(now.year, now.month, now.day);
+    return (now.difference(from).inHours/24).round();
+  }
+
+  String getRemainingDays(String date) {
+    DateTime currentDate = DateTime.now();
+    DateTime toDate = DateTime.parse(date);
+    debugPrint("getRemainingHours " + daysBetween(currentDate, toDate).toString());
+    return daysBetween(currentDate, toDate).toString() + " Days";
+  }
+
 }
 
 class ReminderChip extends StatelessWidget {

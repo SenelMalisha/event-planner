@@ -10,6 +10,9 @@ abstract class AppDao {
   @insert
   Future<void> insertUser(User user);
 
+  @Query('SELECT * FROM User WHERE username = :username AND password = :password')
+  Future<List<User>> getUser(String username, String password);
+
   @Query('SELECT * FROM Note')
   Future<List<Note>> getAllNotes();
 
@@ -30,6 +33,9 @@ abstract class AppDao {
 
   @Query('SELECT * FROM Reminder')
   Future<List<Reminder>> getAllReminders();
+
+  @Query('SELECT * FROM Reminder WHERE title LIKE :searchText AND type = :type')
+  Future<List<Reminder>> searchReminder(String searchText, String type);
 
   @Query('SELECT * FROM Reminder WHERE id = :id')
   Stream<Reminder?> findReminderById(int id);
