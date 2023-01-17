@@ -4,11 +4,13 @@ import 'package:floor/floor.dart';
 class Reminder {
   @PrimaryKey(autoGenerate: true)
   int? id;
+  final String type;
   final String title;
-  final String description;
   final String time;
-  final bool isRepeat;
+  final String date;
+  final String isCompleted;
+  final String isRepeat;
 
 
-  Reminder(this.title, this.description, this.time, this.isRepeat);
+  Reminder(this.type, this.title, this.time, this.date, this.isCompleted, this.isRepeat);
 }
