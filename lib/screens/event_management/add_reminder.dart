@@ -120,6 +120,7 @@ class _AddReminderScreenBottomState extends State<AddReminderScreenBottom> {
     }
   }
 
+  //display time
   Future<void> displayTimeDialog(BuildContext context) async {
     final TimeOfDay? time =
     await showTimePicker(context: context, initialTime: TimeOfDay.now());
