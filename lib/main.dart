@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             textTheme: Theme.of(context).textTheme.apply(
                   bodyColor: kPrimaryColor,
                   fontFamily: 'Montserrat',
-                ),
+            ),
           ),
           home: const LoginScreen(),
           localizationsDelegates: [
