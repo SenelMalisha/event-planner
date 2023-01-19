@@ -6,44 +6,49 @@ import '../../database/repository/app_repository.dart';
 import '../../utils/constants.dart';
 import '../../utils/strings.dart';
 import '../../widgets/custom_shape_clipper.dart';
-import '../google_map/google_map.dart';
 
-class AddEvent extends StatefulWidget {
-  const AddEvent({Key? key}) : super(key: key);
+class AddReminder extends StatefulWidget {
+  const AddReminder({Key? key}) : super(key: key);
 
   @override
-  State<AddEvent> createState() => _AddEventState();
+  State<AddReminder> createState() => _AddReminderState();
 }
 
-class _AddEventState extends State<AddEvent> {
+class _AddReminderState extends State<AddReminder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bgDark,
         centerTitle: true,
-        title: const Text(StringValues.lblAddEvent),
+        title: const Text(StringValues.lblAddReminder),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: [AddEventTop(), AddEventScreenBottom()],
+          children: [AddReminderTop(), AddReminderScreenBottom()],
         ),
       ),
     );
   }
 }
 
-class AddEventTop extends StatefulWidget {
-  const AddEventTop({Key? key}) : super(key: key);
+class AddReminderTop extends StatefulWidget {
+  const AddReminderTop({Key? key}) : super(key: key);
 
   @override
-  State<AddEventTop> createState() => _AddEventTopState();
+  State<AddReminderTop> createState() => _AddReminderTopState();
 }
 
-class _AddEventTopState extends State<AddEventTop> {
+class _AddReminderTopState extends State<AddReminderTop> {
   @override
   Widget build(BuildContext context) {
+    List<String> reminderList = [
+      'Recurring Reminder',
+      'Tomorrow Reminders',
+      'Today Reminders',
+      'All Reminders'
+    ];
     return Stack(
       children: <Widget>[
         ClipPath(
@@ -64,7 +69,7 @@ class _AddEventTopState extends State<AddEventTop> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Add Your Event",
+                          "Add your reminder",
                           style: const TextStyle(
                             color: kBackgroundColor,
                             fontSize: 21,
@@ -73,7 +78,7 @@ class _AddEventTopState extends State<AddEventTop> {
                         )
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
             )),
@@ -82,18 +87,20 @@ class _AddEventTopState extends State<AddEventTop> {
   }
 }
 
-class AddEventScreenBottom extends StatefulWidget {
-  const AddEventScreenBottom({Key? key}) : super(key: key);
+class AddReminderScreenBottom extends StatefulWidget {
+  const AddReminderScreenBottom({Key? key}) : super(key: key);
 
   @override
-  State<AddEventScreenBottom> createState() =>
-      _AddEventScreenBottomState();
+  State<AddReminderScreenBottom> createState() =>
+      _AddReminderScreenBottomState();
 }
 
-class _AddEventScreenBottomState extends State<AddEventScreenBottom> {
+class _AddReminderScreenBottomState extends State<AddReminderScreenBottom> {
   static AppRepository _appRepository = GetIt.instance.get<AppRepository>();
   final List<bool> _selectedOption = <bool>[true, false];
+  final List<bool> _selectedType = <bool>[true, false];
   int repeatIndex = 0;
+  String selectedType = "Personal";
   DateTime selectedDate = DateTime.now();
   String selectedTime = "Select time";
   String pickedDate = "Select Date";
@@ -123,17 +130,6 @@ class _AddEventScreenBottomState extends State<AddEventScreenBottom> {
     }
   }
 
-  Widget buildEventLocation() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Image.asset(
-        'assets/images/map.jpg',
-        height: MediaQuery.of(context).size.height / 3,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -158,7 +154,7 @@ class _AddEventScreenBottomState extends State<AddEventScreenBottom> {
                 border: OutlineInputBorder(
                   borderSide: BorderSide(width: 2, color: bgDark), //<--<-- SEE HERE
                 ),
-                hintText: 'Enter Event Title',
+                hintText: 'Enter reminder title',
               ),
             ),
             SizedBox(
@@ -174,7 +170,7 @@ class _AddEventScreenBottomState extends State<AddEventScreenBottom> {
             ),
             TextField(
               readOnly: true,
-              onTap: (){_selectDate(context);},
+            onTap: (){_selectDate(context);},
               style: TextStyle(color: bgTextColorBlack),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -211,62 +207,109 @@ class _AddEventScreenBottomState extends State<AddEventScreenBottom> {
               height: 20.0,
             ),
             Text(
-              StringValues.lblLocationEvent,
+              StringValues.lblRepeatReminder,
               style: const TextStyle(
                   color: bgDark, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: 10.0,
             ),
-            GestureDetector(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MapScreen()),
-                );
+            ToggleButtons(
+              direction: Axis.horizontal,
+              onPressed: (int index) {
+                setState(() {
+                  // The button that is tapped is set to true, and the others to false.
+                  for (int i = 0; i < _selectedOption.length; i++) {
+                    _selectedOption[i] = i == index;
+                    repeatIndex = index;
+                  }
+                });
               },
-              child: Center(child: buildEventLocation())
+              borderWidth: 2,
+              borderColor: bgDark,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: bgDark,
+              selectedColor: kBackgroundColor,
+              fillColor: bgDark,
+              color: bgDark,
+              constraints: const BoxConstraints(
+                minHeight: 40.0,
+                minWidth: 80.0,
+              ),
+              isSelected: _selectedOption,
+              children: [Text("YES"), Text("NO")],
             ),
             SizedBox(
-              height: 30.0,
+              height: 20.0,
+            ),
+            Text(
+              StringValues.lblReminderType,
+              style: const TextStyle(
+                  color: bgDark, fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            ToggleButtons(
+              direction: Axis.horizontal,
+              onPressed: (int index) {
+                setState(() {
+                  // The button that is tapped is set to true, and the others to false.
+                  for (int i = 0; i < _selectedType.length; i++) {
+                    _selectedType[i] = i == index;
+                    index == 0 ? selectedType = "Personal" : selectedType = "Work";
+                  }
+                });
+              },
+              borderWidth: 2,
+              borderColor: bgDark,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: bgDark,
+              selectedColor: kBackgroundColor,
+              fillColor: bgDark,
+              color: bgDark,
+              constraints: const BoxConstraints(
+                minHeight: 40.0,
+                minWidth: 80.0,
+              ),
+              isSelected: _selectedType,
+              children: [Text("Personal"), Text("Work")],
+            ),
+            SizedBox(
+              height: 20.0,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: EdgeInsets.only(bottom: 16),
               child: Container(
-                  width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
-                    onPressed: () {
-
-                      if(titleController.text.isNotEmpty && selectedTime != "Select time" && pickedDate != "Select Date"){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Event added successfully"),
-                        ));
-                        Navigator.pop(context);
-                      }
-
-                      //_appRepository.addReminder(Reminder(selectedType, titleController.text, selectedTime, pickedDate,"false", _selectedOption[repeatIndex].toString()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          side: BorderSide(color: bgDark)
-                      ),
-                      primary: bgDark,
-                      elevation: 8,
-                      shadowColor: Colors.black87,
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Reminder added successfully"),
+                  ));
+                  _appRepository.addReminder(Reminder(selectedType, titleController.text, selectedTime, pickedDate,"false", _selectedOption[repeatIndex].toString()));
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      side: BorderSide(color: bgDark)
+                  ),
+                  primary: bgDark,
+                  elevation: 8,
+                  shadowColor: Colors.black87,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    StringValues.lblAddReminder,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        StringValues.lblAddEvent,
-                        style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                    ),
-                  )),
+                  ),
+                ),
+              )),
             )
           ],
         ),

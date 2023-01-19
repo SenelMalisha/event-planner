@@ -11,8 +11,10 @@ const accent = Color(0xFFFFD700);
 const bgChat = Color(0xFF1E1B38);
 const bgChatMessage = Color(0xFF054640);
 const bgInputMessage = Color(0xFF2C373D);
+const transparent = Color(0xFFFFFF);
 
 const bgDark = Color(0xFF000000);
+const bgBlackLight = Color(0xFF181717);
 const bgLight = Color(0x203A3A3A);
 const bgTextColor = Color(0xFFFFFFFF);
 const bgTextColorBlack = Color(0xFF000000);
@@ -39,6 +41,7 @@ const mainColor = Color(0xff2e77d3);
 const DropColor = Color(0x14000000);
 const LinearColor2 = Color(0xFF3870A3);
 const LinearColor1 = Color(0xFF26467F);
+const tagColor = Color(0xFFEAE9E9);
 
 const pureWhite = const Color(0xFFFFFFFF);
 const pureBlack = const Color(0xFF000000);

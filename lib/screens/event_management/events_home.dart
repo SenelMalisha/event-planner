@@ -25,7 +25,7 @@ class ComplaintsAppDashboardView extends StatelessWidget {
            dashboardProvider.currentTab == 1
               ? Text("Schedules")
               :
-    Text("Remainders")),
+    Text("Reminders")),
 
         body: NotificationListener(
           onNotification: (OverscrollIndicatorNotification overscroll) {
@@ -37,7 +37,7 @@ class ComplaintsAppDashboardView extends StatelessWidget {
           :
           dashboardProvider.currentTab == 1
               ? Schedules()
-              : remainders(),
+              : Reminders(),
         ),
         bottomNavigationBar: bottomNavigationBar(dashboardProvider));
   }
