@@ -56,9 +56,11 @@ dependencies:
   google_fonts: ^3.0.1
   get_it: ^7.2.0
   flutter_staggered_animations: ^1.0.0
-  sound_stream: ^0.3.0
+  rxdart: 0.26.0
+  sound_stream:
+    git:
+      url: https://github.com/himashibogahawaththa/flutter-sound-stream.git
   dialogflow_grpc: ^0.2.9
-  rxdart: ^0.27.7
 
   provider: ^6.0.5
   dotted_border: ^2.0.0+3
@@ -70,6 +72,7 @@ dependencies:
   google_maps_flutter: ^2.2.3
   flutter_polyline_points: ^1.0.0
   geolocator: ^9.0.2
+  flutter_google_places: ^0.3.0
 
 flutter_native_splash:
   color: "#2e2c28"
