@@ -236,7 +236,15 @@ class _AddEventScreenBottomState extends State<AddEventScreenBottom> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _appRepository.addReminder(Reminder(titleController.text, pickedDate, selectedTime, _selectedOption[repeatIndex]));
+
+                      if(titleController.text.isNotEmpty && selectedTime != "Select time" && pickedDate != "Select Date"){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Event added successfully"),
+                        ));
+                        Navigator.pop(context);
+                      }
+
+                      //_appRepository.addReminder(Reminder(selectedType, titleController.text, selectedTime, pickedDate,"false", _selectedOption[repeatIndex].toString()));
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
