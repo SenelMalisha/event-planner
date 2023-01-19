@@ -60,6 +60,8 @@ dependencies:
   sound_stream: ^0.3.0
   dialogflow_grpc: ^0.2.9
   rxdart: ^0.27.7
+  just_audio: ^0.9.28
+  get: ^4.6.5
 
   provider: ^6.0.5
   dotted_border: ^2.0.0+3
@@ -118,6 +120,7 @@ flutter:
     - assets/icons/
     - assets/lottie/
     - assets/images/
+    - assets/audio/
     - assets/images/facebook.png
     - assets/images/google.png
     - assets/images/bot.png
