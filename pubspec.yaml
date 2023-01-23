@@ -39,7 +39,6 @@ dependencies:
   dialog_flowtter:
   flutter_svg: ^1.1.6
   flutter_staggered_grid_view: ^0.4.0
-  transparent_image: ^1.0.0
   floor: ^1.4.1
 
   # The following adds the Cupertino Icons font to your application.
@@ -56,16 +55,11 @@ dependencies:
   url_launcher: ^6.1.7
   google_fonts: ^3.0.1
   get_it: ^7.2.0
-<<<<<<< HEAD
-  flutter_staggered_animations: ^1.1.1
-  sound_stream: ^0.3.0
-=======
   flutter_staggered_animations: ^1.0.0
   rxdart: 0.26.0
   sound_stream:
     git:
       url: https://github.com/himashibogahawaththa/flutter-sound-stream.git
->>>>>>> 1dcc48b484ec89cb9d29a2048c8f9b5a8aefc129
   dialogflow_grpc: ^0.2.9
 
   provider: ^6.0.5
