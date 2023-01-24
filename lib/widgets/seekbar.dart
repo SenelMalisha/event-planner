@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /** created by Himashi Bogahawaththa **/
@@ -32,10 +34,23 @@ class SeekBar extends StatefulWidget {
 }
 
 class _SeekBarState extends State<SeekBar> {
+  double? _dragValue;
+
+  String _formatDuration(Duration? duration){
+    if(duration == null){
+      return '--:--';
+    }
+    else{
+      String minutes = duration.inMinutes.toString().padLeft(2, '0');
+      String seconds = duration.inSeconds.remainder(60).toString();
+      return '$minutes:$seconds';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Text(_formatDuration(widget.position)),
         Expanded(
           child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
@@ -53,11 +68,34 @@ class _SeekBarState extends State<SeekBar> {
                 overlayColor: Colors.white
               ),
               child: Slider(
-                value: 0,
-                onChanged: (value) {},
+                min: 0.0,
+                max: widget.duration.inMilliseconds.toDouble(),
+                value: min(
+                  _dragValue ?? widget.position.inMilliseconds.toDouble(),
+                  widget.duration.inMilliseconds.toDouble(),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _dragValue = value;
+                  });
+                  if(widget.onChanged != null){
+                    widget.onChanged!(Duration(milliseconds: value.round(),));
+                  }
+                },
+                onChangeEnd: (value){
+                  if(widget.onChangedEnd != null){
+                    widget.onChangedEnd!(
+                      Duration(
+                        milliseconds: value.round()
+                      )
+                    );
+                  }
+                  _dragValue = null;
+                },
               )
           ),
-        )
+        ),
+        Text(_formatDuration(widget.duration)),
       ],
     );
   }

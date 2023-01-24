@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 
+import '../../widgets/player_buttons.dart';
 import '../../widgets/seekbar.dart';
 
 /** created by Himashi Bogahawaththa **/
@@ -67,18 +68,65 @@ class _SongScreenState extends State<SongScreen> {
             fit: BoxFit.cover,
           ),
           _BackgroundFilter(),
-          StreamBuilder(
-            stream: _seekBarDataStream,
-            builder: (context, snapshot){
-              final positionData = snapshot.data;
-              return SeekBar(
-                position: positionData?.duration ?? Duration.zero,
-                duration: positionData?.duration ?? Duration.zero,
-                onChanged: audioPlayer.seek,
-              );
-            }
-          )
+          MusicPlayer(
+              song: song,
+              seekBarDataStream: _seekBarDataStream,
+              audioPlayer: audioPlayer)
         ],
+      ),
+    );
+  }
+}
+
+class MusicPlayer extends StatelessWidget {
+  const MusicPlayer({
+    Key? key,
+    required Stream<SeekBarData> seekBarDataStream,
+    required this.audioPlayer, required this.song,
+  }) : _seekBarDataStream = seekBarDataStream, super(key: key);
+
+  final Song song;
+  final Stream<SeekBarData> _seekBarDataStream;
+  final AudioPlayer audioPlayer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            song.title,
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          SizedBox(height: 10,),
+          Text(
+            song.description,
+            maxLines: 2,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: Colors.white),
+          ),
+          SizedBox(height: 30,),
+          StreamBuilder(
+              stream: _seekBarDataStream,
+              builder: (context, snapshot){
+                final positionData = snapshot.data;
+                return SeekBar(
+                  position: positionData?.position ?? Duration.zero,
+                  duration: positionData?.duration ?? Duration.zero,
+                  onChanged: audioPlayer.seek,
+                );
+              }
+          ),
+          PlayerButtons(audioPlayer: audioPlayer)
+        ]
       ),
     );
   }
