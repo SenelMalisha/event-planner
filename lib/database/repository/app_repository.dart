@@ -42,6 +42,10 @@ class AppRepository {
     return _appDao.getAllReminders();
   }
 
+  void deleteReminder(int id) {
+    _appDao.deleteReminder(id);
+  }
+
   Future<List<Reminder>> getReminderBySearchText(String searchText, String type){
     return _appDao.searchReminder(searchText, type);
   }
