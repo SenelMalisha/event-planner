@@ -40,6 +40,9 @@ abstract class AppDao {
   @Query('SELECT * FROM Reminder WHERE id = :id')
   Stream<Reminder?> findReminderById(int id);
 
+  @Query('DELETE FROM table_name WHERE id = :id')
+  Stream<Reminder?> deleteReminder(int id);
+
   @insert
   Future<void> insertReminder(Reminder reminder);
 

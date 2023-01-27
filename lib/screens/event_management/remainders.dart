@@ -2,6 +2,7 @@ import 'package:event_planner/database/entity/reminder.dart';
 import 'package:event_planner/utils/constants.dart';
 import 'package:event_planner/utils/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../database/repository/app_repository.dart';
@@ -297,40 +298,65 @@ class _ReminderScreenBottomState extends State<ReminderScreenBottom> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      _getRemindersFromDb();
-    });
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: EdgeInsets.only(left: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                StringValues.lblResults,
-                style: const TextStyle(
-                  color: bgDark,
-                  fontSize: 21,
-                  fontWeight: FontWeight.w700,
+    return RefreshIndicator(
+      onRefresh: () async {
+        _getRemindersFromDb();
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  StringValues.lblResults,
+                  style: const TextStyle(
+                    color: bgDark,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: ClampingScrollPhysics(),
-              itemCount: reminders.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ReminderCard(reminder: reminders[index]);
-              },
-            )
-          ],
+              SizedBox(
+                height: 10.0,
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics: ClampingScrollPhysics(),
+                itemCount: reminders.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(padding: const EdgeInsets.all(8.0),
+                  child: Slidable(
+                    key: const ValueKey(0),
+                    endActionPane: ActionPane(
+                      dismissible: DismissiblePane(onDismissed: (){}),
+                      motion: const DrawerMotion(),
+                      children: [
+                        SlidableAction(
+                          autoClose: true,
+                          flex: 1,
+                          onPressed: (value) {
+                            // _appRepository.deleteReminder(reminders[index].id!);
+                            reminders.removeAt(index);
+                            setState(() {});
+                          },
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
+                        ),
+                      ],
+                    ), child: ReminderCard(reminder: reminders[index],),
+                  ));
+                  // return ReminderCard(reminder: reminders[index]);
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -427,17 +453,20 @@ class ReminderCard extends StatelessWidget {
     );
   }
 
-  int daysBetween(DateTime from, DateTime now) {
-    from = DateTime(from.year, from.month, from.day);
-    now = DateTime(now.year, now.month, now.day);
-    return (now.difference(from).inHours/24).round();
+  String daysBetween(DateTime from, DateTime now) {
+    int days = (now.difference(from).inHours/24).round();
+    if(days <= 0) {
+      return "Expired";
+    } else {
+      return days.toString() + " Days";
+    }
   }
 
   String getRemainingDays(String date) {
     DateTime currentDate = DateTime.now();
     DateTime toDate = DateTime.parse(date);
     debugPrint("getRemainingHours " + daysBetween(currentDate, toDate).toString());
-    return daysBetween(currentDate, toDate).toString() + " Days";
+    return daysBetween(toDate, currentDate);
   }
 
 }

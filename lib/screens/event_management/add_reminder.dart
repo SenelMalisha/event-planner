@@ -1,4 +1,5 @@
 import 'package:event_planner/database/entity/reminder.dart';
+import 'package:event_planner/services/local_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -126,6 +127,7 @@ class _AddReminderScreenBottomState extends State<AddReminderScreenBottom> {
     if (time != null) {
       setState(() {
         selectedTime = time.format(context);
+        selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, time!.hour, time!.minute);
       });
     }
   }
@@ -288,6 +290,7 @@ class _AddReminderScreenBottomState extends State<AddReminderScreenBottom> {
                     content: Text("Reminder added successfully"),
                   ));
                   _appRepository.addReminder(Reminder(selectedType, titleController.text, selectedTime, pickedDate,"false", _selectedOption[repeatIndex].toString()));
+                  LocalNotificationService().scheduleReminder(title: titleController.text, body: "Reminder from personal space", scheduledDate: selectedDate);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),

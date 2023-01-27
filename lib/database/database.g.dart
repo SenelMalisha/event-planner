@@ -285,6 +285,21 @@ class _$AppDao extends AppDao {
   }
 
   @override
+  Stream<Reminder?> deleteReminder(int id) {
+    return _queryAdapter.queryStream('DELETE FROM table_name WHERE id = ?1',
+        mapper: (Map<String, Object?> row) => Reminder(
+            row['type'] as String,
+            row['title'] as String,
+            row['time'] as String,
+            row['date'] as String,
+            row['isCompleted'] as String,
+            row['isRepeat'] as String),
+        arguments: [id],
+        queryableName: 'table_name',
+        isView: false);
+  }
+
+  @override
   Future<List<Schedule>> getAllSchedule() async {
     return _queryAdapter.queryList('SELECT * FROM Schedule',
         mapper: (Map<String, Object?> row) => Schedule(
