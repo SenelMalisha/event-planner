@@ -1,3 +1,4 @@
+import 'package:event_planner/screens/animated_drawer/expenses/report.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -259,15 +260,15 @@ class _ShowDetailsState extends State<ShowDetails> {
           //   ], child:
           GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => Report(
-                //               type: widget.type,
-                //               category: itemList[int].text,
-                //               selectedDate: widget.selectedDate,
-                //               icon: iconData(itemList[int]),
-                //             ))).then((value) => setState(() {}));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Report(
+                              type: widget.type,
+                              category: itemList[int].text,
+                              selectedDate: widget.selectedDate,
+                              icon: iconData(itemList[int]),
+                            ))).then((value) => setState(() {}));
               },
               child: CategoryDetails(
                   widget.type,
