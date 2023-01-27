@@ -1,4 +1,5 @@
 
+import 'package:event_planner/screens/animated_drawer/payment_page.dart';
 import 'package:event_planner/screens/bot_screen/chat_screen.dart';
 import 'package:event_planner/screens/moments_screen/moments.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
     NotesGridView(),
     Moments(),
     MoreInfo(),
-    BotScreen(),
+    ExpensesHome(),
     Moments(),
     BotScreen(),
     Moments(),
@@ -96,6 +97,7 @@ class _DashboardState extends State<Dashboard> {
     "assets/images/ph2.png",
   ];
 
+
   final List<String> titleList = [
     "Talk to Enola",
     "Events",
@@ -103,7 +105,7 @@ class _DashboardState extends State<Dashboard> {
     "My Notes",
     "Moments",
     "TODO",
-    "TODO",
+    "Expenses",
     "TODO",
     "TODO",
     "TODO",
@@ -124,10 +126,10 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.removeListener(onListenerController);
-  }
+  // @override
+  // void dispose() {
+  //  // controller.removeListener(onListenerController);
+  // }
 
   @override
   Widget build(BuildContext context) {

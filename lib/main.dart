@@ -1,9 +1,11 @@
 import 'package:event_planner/database/dao/app_dao.dart';
 import 'package:event_planner/database/repository/app_repository.dart';
 import 'package:event_planner/providers/dashboard_provider.dart';
+import 'package:event_planner/utils/shared_preferences_services.dart';
 import 'package:event_planner/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,9 +15,13 @@ import 'utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await sharedPrefs.sharePrefsInit();
+  sharedPrefs.setItems(setCategoriesToDefault: false);
+  sharedPrefs.getAllExpenseItemsLists();
   initializeDatabase();
+  await ScreenUtil.ensureScreenSize();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => DashboardProvider()),
   ],child: const MyApp()));
