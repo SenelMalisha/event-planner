@@ -49,7 +49,7 @@ class _DrawerMainState extends State<DrawerMain> {
   Widget getScreen (){
     switch (currentMenu) {
       case MenuItems.payment:
-        return const PaymentPage();
+        return ExpensesHome();
       case MenuItems.history:
         return const HistoryPage();
       case MenuItems.dashboard:

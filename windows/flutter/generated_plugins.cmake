@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  dialogflow_grpc
   flutter_localization
   geolocator_windows
   local_auth_windows
