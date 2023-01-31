@@ -8,6 +8,7 @@ import '../../widgets/home_bg_color.dart';
 import '../../widgets/nearby_event_card.dart';
 import '../../widgets/ui_helper.dart';
 import '../../widgets/upcoming_event_card.dart';
+import '../google_map/google_map.dart';
 import 'add_event.dart';
 import 'event_detail_page.dart';
 

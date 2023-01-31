@@ -1,5 +1,11 @@
+import 'package:event_planner/utils/shared_preferences_services.dart';
 import 'package:flutter/material.dart';
 export 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+
+import '../models/category_item.dart';
+import '../models/input_model.dart';
+import 'constants.dart';
 
 // Colors
 const kBackgroundColor = Color(0xFFFFFFFF);
@@ -11,8 +17,10 @@ const accent = Color(0xFFFFD700);
 const bgChat = Color(0xFF1E1B38);
 const bgChatMessage = Color(0xFF054640);
 const bgInputMessage = Color(0xFF2C373D);
+const transparent = Color(0xFFFFFF);
 
 const bgDark = Color(0xFF000000);
+const bgBlackLight = Color(0xFF181717);
 const bgLight = Color(0x203A3A3A);
 const bgTextColor = Color(0xFFFFFFFF);
 const bgTextColorBlack = Color(0xFF000000);
@@ -39,6 +47,7 @@ const mainColor = Color(0xff2e77d3);
 const DropColor = Color(0x14000000);
 const LinearColor2 = Color(0xFF3870A3);
 const LinearColor1 = Color(0xFF26467F);
+const tagColor = Color(0xFFEAE9E9);
 
 const pureWhite = const Color(0xFFFFFFFF);
 const pureBlack = const Color(0xFF000000);
@@ -51,5 +60,224 @@ const Color lime = Color.fromRGBO(240, 203, 148, 1);
 const Color orange = Color.fromRGBO(255, 158, 107, 1);
 const Color primaryLight = Color.fromRGBO(240, 234, 248, 1);
 const Color imgBG = Color.fromRGBO(230, 230, 254, 1);
+
+
+
+Color green = Color.fromRGBO(57, 157, 3, 1),
+    red = Color.fromRGBO(217, 89, 89, 1),
+    white = Color.fromRGBO(255, 255, 255, 1),
+    blue1 = Color.fromRGBO(210, 234, 251, 1),
+    blue2 = Color.fromRGBO(139, 205, 254, 1),
+    blue3 = Color.fromRGBO(89, 176, 222, 1),
+    grey = Colors.grey;
+
+List<Color> chartPieColors = [
+  //19
+  Color.fromRGBO(100, 202, 254, 1),
+  Color.fromRGBO(80, 157, 253, 1),
+  Color.fromRGBO(7, 156, 193, 1),
+  Color.fromRGBO(89, 129, 163, 1),
+  Color.fromRGBO(79, 94, 120, 1),
+  Color.fromRGBO(196, 199, 216, 1),
+  Color.fromRGBO(255, 206, 161, 1),
+  Color.fromRGBO(255, 183, 121, 1),
+  Color.fromRGBO(237, 156, 128, 1),
+  Color.fromRGBO(126, 180, 166, 1),
+  Color.fromRGBO(212, 216, 140, 1),
+  Color.fromRGBO(144, 192, 106, 1),
+  Color.fromRGBO(128, 186, 76, 1),
+  Color.fromRGBO(224, 217, 255, 1),
+  Color.fromRGBO(202, 164, 255, 1),
+  Color.fromRGBO(197, 156, 240, 1),
+  Color.fromRGBO(241, 197, 211, 1),
+  Color.fromRGBO(244, 151, 178, 1),
+  Color.fromRGBO(218, 145, 176, 1),
+  //20
+  Color.fromRGBO(141, 190, 255, 1),
+  Color.fromRGBO(160, 217, 254, 1),
+  Color.fromRGBO(117, 216, 228, 1),
+  Color.fromRGBO(120, 217, 192, 1),
+  Color.fromRGBO(172, 198, 152, 1),
+  Color.fromRGBO(162, 193, 115, 1),
+  Color.fromRGBO(112, 164, 112, 1),
+  Color.fromRGBO(65, 174, 223, 1),
+  Color.fromRGBO(71, 131, 192, 1),
+  Color.fromRGBO(32, 225, 188, 1),
+  Color.fromRGBO(53, 136, 143, 1),
+  Color.fromRGBO(139, 178, 193, 1),
+  Color.fromRGBO(125, 150, 191, 1),
+  Color.fromRGBO(119, 131, 148, 1),
+  Color.fromRGBO(243, 210, 122, 1),
+  Color.fromRGBO(254, 203, 94, 1),
+  Color.fromRGBO(244, 186, 106, 1),
+  Color.fromRGBO(217, 165, 105, 1),
+  Color.fromRGBO(214, 142, 96, 1),
+  Color.fromRGBO(190, 119, 112, 1),
+  Color.fromRGBO(194, 94, 78, 1),
+  Color.fromRGBO(192, 72, 42, 1),
+  Color.fromRGBO(176, 29, 51, 1),
+//18
+  Color.fromRGBO(198, 180, 251, 1),
+  Color.fromRGBO(155, 128, 217, 1),
+  Color.fromRGBO(112, 130, 212, 1),
+  Color.fromRGBO(78, 123, 216, 1),
+  Color.fromRGBO(139, 205, 254, 1),
+  Color.fromRGBO(89, 176, 222, 1),
+  Color.fromRGBO(81, 155, 194, 1),
+  Color.fromRGBO(4, 135, 192, 1),
+  Color.fromRGBO(50, 128, 171, 1),
+  Color.fromRGBO(44, 110, 119, 1),
+  Color.fromRGBO(41, 147, 134, 1),
+  Color.fromRGBO(95, 155, 71, 1),
+  Color.fromRGBO(179, 217, 37, 1),
+  Color.fromRGBO(237, 178, 135, 1),
+  Color.fromRGBO(198, 157, 100, 1),
+  Color.fromRGBO(194, 140, 112, 1),
+  Color.fromRGBO(214, 138, 88, 1),
+  Color.fromRGBO(225, 123, 66, 1),
+];
+
+String format(double number) =>
+    NumberFormat("#,###,###,###,###,###.##", "en_US").format(number);
+
+IconData iconData(CategoryItem item) => IconData(item.iconCodePoint,
+    fontPackage: item.iconFontPackage, fontFamily: item.iconFontFamily);
+
+//should description be '' or null?
+CategoryItem categoryItem(IconData icon, String name) =>
+    CategoryItem(icon.codePoint, icon.fontPackage, icon.fontFamily, name, '');
+
+Widget? connectionUI(AsyncSnapshot<List<InputModel>> snapshot) {
+  if (snapshot.connectionState == ConnectionState.none) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+  if (snapshot.hasError) {
+    print('${snapshot.error}');
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
+List<CategoryItem> createItemList({
+  List<InputModel>? transactions,
+  required bool forAnalysisPage,
+  isIncomeType,
+  forSelectIconPage,
+}) {
+  List<CategoryItem> itemList = [], items = [], expenseItems = [];
+  sharedPrefs.getAllExpenseItemsLists().forEach((parentExpenseItem) =>
+      parentExpenseItem
+          .forEach((expenseItem) => expenseItems.add(expenseItem)));
+
+  if (forAnalysisPage) {
+    items = isIncomeType ? incomeItems : expenseItems;
+  } else {
+    items = [...incomeItems, ...expenseItems];
+  }
+  if (forSelectIconPage) {
+    return items;
+  } else {
+    for (InputModel transaction in transactions!) {
+      for (int i = 0; i < items.length; i++) {
+        if (transaction.category == items[i].text) {
+          itemList.add(items[i]);
+          break;
+        }
+        if (i == items.length - 1) {
+          CategoryItem itemElse = CategoryItem(
+              Icons.category_outlined.codePoint,
+              Icons.category_outlined.fontPackage,
+              Icons.category_outlined.fontFamily,
+              transaction.category!,
+              transaction.description);
+          itemList.add(itemElse);
+        }
+      }
+    }
+    return itemList;
+  }
+}
+
+//for analysis, report
+
+final DateTime now = DateTime.now(),
+    todayDT = DateTime(now.year, now.month, now.day),
+    startOfThisWeek = todayDT.subtract(Duration(days: todayDT.weekday - 1)),
+    startOfThisMonth = DateTime(todayDT.year, todayDT.month, 1),
+    startOfThisYear = DateTime(todayDT.year, 1, 1),
+    startOfThisQuarter = DateTime(todayDT.year, quarterStartMonth, 1);
+
+final int thisQuarter = (todayDT.month + 2) ~/ 3,
+    quarterStartMonth = 3 * thisQuarter - 2;
+final List<String> timeline = [
+  'Today',
+  'This week',
+  'This month',
+  'This quarter',
+  'This year',
+  'All'
+];
+
+InputModel inputModel(data) => InputModel(
+    id: data.id,
+    type: data.type,
+    amount: data.amount!,
+    category: data.category!,
+    description: data.description!,
+    date: data.date,
+    time: data.time);
+
+List<InputModel> filterData(
+    BuildContext context, List<InputModel> data, String selectedDate) {
+  // filter data based on user's selected day
+  return (data
+      .map((data) {
+    DateTime dateSelectedDT =
+    DateFormat('dd/MM/yyyy').parse(data.date!);
+
+    if (selectedDate == 'Today') {
+      if (dateSelectedDT.isAfter(todayDT.subtract(Duration(days: 1))) &&
+          dateSelectedDT.isBefore(todayDT.add(Duration(days: 1)))) {
+        return inputModel(data);
+      }
+    } else if (selectedDate == 'This week') {
+      if (dateSelectedDT
+          .isAfter(startOfThisWeek.subtract(Duration(days: 1))) &&
+          dateSelectedDT
+              .isBefore(startOfThisWeek.add(Duration(days: 7)))) {
+        return inputModel(data);
+      }
+    } else if (selectedDate == 'This month') {
+      if (dateSelectedDT
+          .isAfter(startOfThisMonth.subtract(Duration(days: 1))) &&
+          dateSelectedDT
+              .isBefore(DateTime(todayDT.year, todayDT.month + 1, 1))) {
+        return inputModel(data);
+      }
+    } else if (selectedDate == 'This quarter') {
+      if (dateSelectedDT.isAfter(
+          startOfThisQuarter.subtract(Duration(days: 1))) &&
+          dateSelectedDT.isBefore(DateTime(startOfThisQuarter.year,
+              startOfThisQuarter.month + 3, 1))) {
+        return inputModel(data);
+      }
+    } else if (selectedDate == 'This year') {
+      if (dateSelectedDT
+          .isAfter(startOfThisYear.subtract(Duration(days: 1))) &&
+          dateSelectedDT.isBefore(DateTime(todayDT.year + 1, 1, 1))) {
+        return inputModel(data);
+      }
+    } else {
+      return inputModel(data);
+    }
+  })
+      .where((element) => element != null)
+      .toList())
+      .cast<InputModel>();
+}
+
 
 

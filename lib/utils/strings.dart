@@ -15,4 +15,16 @@ class StringValues {
   static const lblTime = "Time: ";
   static const lblDate = "Date: ";
   static const lblLocation = "Venue: ";
+  static const lblSearchReminder = "Search your reminders";
+  static const lblResults = "Results";
+  static const lblPersonal = "Personal";
+  static const lblWork = "Work";
+  static const lblAddReminder = "Add Reminder";
+  static const lblReminderTitle = "Title";
+  static const lblReminderType = "Type";
+  static const lblRepeatReminder = "Repeat reminder";
+  static const lblAddEvent = "Add Event";
+  static const lblLocationEvent = "Select Location: ";
+  static const lblSaveLocation = "Save Location";
+  static const lblSearchLocation = "Search Location";
 }

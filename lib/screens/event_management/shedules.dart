@@ -7,6 +7,7 @@ import 'package:folding_cell/folding_cell/widget.dart';
 import '../../database/entity/event.dart';
 import '../../utils/constants.dart';
 import '../../utils/strings.dart';
+import '../../widgets/custom_shape_clipper.dart';
 
 class Schedules extends StatefulWidget {
   const Schedules({Key? key}) : super(key: key);
@@ -16,16 +17,39 @@ class Schedules extends StatefulWidget {
 }
 
 class _SchedulesState extends State<Schedules> {
+  @override
+  Widget build(BuildContext context) {
+    return ScheduleBottom();
+    // return Scaffold(
+    //   body: SingleChildScrollView(
+    //     scrollDirection: Axis.vertical,
+    //     child: Column(
+    //       children: [ScheduleBottom()],
+    //     ),
+    //   ),
+    // );
+    // return Column(
+    //   children: [ScheduleBottom()],
+    // );
+  }
+
+}
+
+class ScheduleBottom extends StatefulWidget {
+  const ScheduleBottom({Key? key}) : super(key: key);
+
+  @override
+  State<ScheduleBottom> createState() => _ScheduleBottomState();
+}
+
+class _ScheduleBottomState extends State<ScheduleBottom> {
   late List<Event> _eventList;
   bool _isExpanded = false;
-  late ConfettiController _controllerTopCenter;
 
   @override
   void initState() {
     super.initState();
-    _controllerTopCenter =
-        ConfettiController(duration: const Duration(seconds: 10));
-    _eventList = [
+        _eventList = [
       Event(
           "Leo's Birthday",
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -79,13 +103,13 @@ class _SchedulesState extends State<Schedules> {
 
   @override
   void dispose() {
-    _controllerTopCenter.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         itemCount: _eventList.length,
         itemBuilder: (context, index) {
@@ -99,7 +123,6 @@ class _SchedulesState extends State<Schedules> {
             animationDuration: Duration(milliseconds: 200),
             onOpen: () => this.setState(() {
               _isExpanded = true;
-              _controllerTopCenter.play();
             }),
             onClose: () => this.setState(() {
               _isExpanded = false;
@@ -109,6 +132,7 @@ class _SchedulesState extends State<Schedules> {
       ),
     );
   }
+
 
   Widget _buildFrontWidget(int index) {
     return Builder(
@@ -294,28 +318,58 @@ class _SchedulesState extends State<Schedules> {
       }),
     );
   }
+}
 
-  Path drawStar(Size size) {
-    // Method to convert degree to radians
-    double degToRad(double deg) => deg * (pi / 180.0);
+class ScheduleTop extends StatefulWidget {
+  const ScheduleTop({Key? key}) : super(key: key);
 
-    const numberOfPoints = 5;
-    final halfWidth = size.width / 2;
-    final externalRadius = halfWidth;
-    final internalRadius = halfWidth / 2.5;
-    final degreesPerStep = degToRad(360 / numberOfPoints);
-    final halfDegreesPerStep = degreesPerStep / 2;
-    final path = Path();
-    final fullAngle = degToRad(360);
-    path.moveTo(size.width, halfWidth);
+  @override
+  State<ScheduleTop> createState() => _ScheduleTopState();
+}
 
-    for (double step = 0; step < fullAngle; step += degreesPerStep) {
-      path.lineTo(halfWidth + externalRadius * cos(step),
-          halfWidth + externalRadius * sin(step));
-      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
-          halfWidth + internalRadius * sin(step + halfDegreesPerStep));
-    }
-    path.close();
-    return path;
+class _ScheduleTopState extends State<ScheduleTop> {
+  @override
+  Widget build(BuildContext context) {
+    List<String> reminderList = [
+      'Recurring Reminder',
+      'Tomorrow Reminders',
+      'Today Reminders',
+      'All Reminders'
+    ];
+    return Stack(
+      children: <Widget>[
+        ClipPath(
+            clipper: CustomShapeClipper(),
+            child: Container(
+              height: 200.0,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [bgDark, bgBlackLight],
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Your Schedules",
+                          style: const TextStyle(
+                            color: kBackgroundColor,
+                            fontSize: 21,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )),
+      ],
+    );
   }
 }
