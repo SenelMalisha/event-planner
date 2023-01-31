@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
+import 'package:share_plus/share_plus.dart';
 
 import '../../widgets/player_buttons.dart';
 import '../../widgets/seekbar.dart';
@@ -58,6 +59,20 @@ class _SongScreenState extends State<SongScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          Container(
+            child: IconButton(
+                onPressed: () {
+                  Share.share(song.url);
+                },
+                iconSize: 30,
+                icon: Icon(
+                  Icons.share,
+                  color: Colors.white,
+                )
+            )
+          )
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: Stack(

@@ -2,6 +2,7 @@ import 'package:event_planner/screens/music_player/playlist_screen.dart';
 import 'package:event_planner/screens/music_player/song_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../models/playlist_model.dart';
 import '../../models/song_model.dart';
@@ -224,7 +225,7 @@ class _CustomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.people_outline),
-            label: 'Profile'
+            label: 'Profile',
         ),
       ],
     );
