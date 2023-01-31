@@ -397,17 +397,17 @@ class _CalendarBodyState extends State<CalendarBody> {
               pageJumpingEnabled: true,
             ),
             SizedBox(height: 8.0.h),
-            // Expanded(
-            //   child: ValueListenableBuilder<List<InputModel>>(
-            //     valueListenable: _selectedEvents,
-            //     builder: (context, value, _) {
-            //       return Column(children: [
-            //         Balance(value),
-            //         Expanded(child: buildEvents(value))
-            //       ]);
-            //     },
-            //   ),
-            // )
+            Expanded(
+              child: ValueListenableBuilder<List<InputModel>>(
+                valueListenable: _selectedEvents,
+                builder: (context, value, _) {
+                  return Column(children: [
+                    Balance(value),
+                    Expanded(child: buildEvents(value))
+                  ]);
+                },
+              ),
+            )
           ]);
         });
   }

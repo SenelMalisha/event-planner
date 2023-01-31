@@ -73,13 +73,6 @@ class _DashboardState extends State<Dashboard> {
     MoreInfo(),
     ExpensesHome(),
     MusicHome(),
-    Moments(),
-    BotScreen(),
-    Moments(),
-    BotScreen(),
-    BotScreen(),
-    BotScreen(),
-    BotScreen(),
   ];
 
   final List<String> images = [
@@ -88,14 +81,9 @@ class _DashboardState extends State<Dashboard> {
     "assets/images/alarmBack.jpg",
     "assets/images/noteBack.jpg",
     "assets/images/momentsBack.jpg",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
-    "assets/images/ph2.png",
+    "assets/images/info.jpg",
+    "assets/images/payment.jpeg",
+    "assets/images/music.jpg",
   ];
 
 
@@ -105,14 +93,9 @@ class _DashboardState extends State<Dashboard> {
     "Alarms",
     "My Notes",
     "Moments",
-    "TODO",
+    "MoreInfo",
     "Expenses",
     "My Music",
-    "TODO",
-    "TODO",
-    "TODO",
-    "TODO",
-    "TODO",
   ];
 
   void onListenerController(){
